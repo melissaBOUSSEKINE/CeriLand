@@ -2,14 +2,9 @@ from flask import Flask
 
 import db
 
-class CeriLandApi:
-
-    def __init__(self) -> None:
-        self.db = db.DB()
-
 app = Flask(__name__)
 
-api = CeriLandApi()
+db = db.DB()
 
 @app.route('/')
 def hello():
@@ -17,9 +12,12 @@ def hello():
 
 @app.route('/users')
 def getAllUser():
-    results = api.db.searchAllUser()
-    print(results)
+    results = db.searchAllUser()
+    # print(results)
     return results
+
+# @app.route('/user', methods=['POST'])
+# def insertUser():
 
 if __name__ == '__main__':
     app.run(debug=True)
