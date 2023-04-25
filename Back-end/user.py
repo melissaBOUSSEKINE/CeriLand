@@ -71,19 +71,16 @@ class User:
         "de la forge","de la mairie","du pont neuf","Thiers","Champs Elysées"
     ]
 
-    def __init__(self):
-        self.id = ""
-        self.role = ""
-        self.username=""
-        self.password=""
-        self.addr=""
-
     def __init__(self, id, role, username, password, addr):
         self.id = id
         self.role = role
         self.username = username
         self.password = password
         self.addr = addr
+
+    @classmethod
+    def user(cls):
+        return cls(None, None, None, None, None)
 
     def setRole(self):
         self.role = random.choice(['user', 'owner'])

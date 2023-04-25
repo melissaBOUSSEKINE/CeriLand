@@ -24,14 +24,13 @@ class TypeObject(enum.Enum):
 
 class Object:
 
-    def __init__(self):
-        self.object = random.choice(random.choice(list(TypeObject)).value)
-        while(len(self.object) == 1 or isinstance(self.object, str))!=True: 
-            self.object = random.choice(random.choice(list(TypeObject)).value)
-        self.img_url = ""
-        self.title = ""
-        self.date_dispo = ""
-        self.prix = ""
+    sizeObject = ["petit", "moyenne", "grand"]
+
+    color = ["blanc", "noir", "pourpre", "rouge", "orange", "jaune", "vert", "bleu", "violet", "ivoire", "crème", "beige", "rose", "kaki", "brun", "marron", "bordeaux"]
+
+    quality = ["neuf", "bon état", "état moyen"]
+
+    object = ""
 
     def __init__(self, id, ownerid, img_url, title, date_dispo, prix):
         self.id = id
@@ -40,10 +39,23 @@ class Object:
         self.title = title
         self.date_dispo = date_dispo
         self.prix = prix
+    
+    @classmethod
+    def object(cls):
+        return cls(None, None, None, None, None, None)
 
     def setTitle(self):
+        self.object = random.choice(random.choice(list(TypeObject)).value)
+        while(len(self.object) == 1 or isinstance(self.object, str))!=True: 
+            self.object = random.choice(random.choice(list(TypeObject)).value)
         titleExtension = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
-        self.title = self.object + titleExtension
+        sizeIndex = random.randint(0, len(self.sizeObject) -1)
+        colorIndex = random.randint(0, len(self.color) - 1)
+        qualityIndex = random.randint(0, len(self.quality) - 1)
+        size = self.sizeObject[sizeIndex]
+        color = self.color[colorIndex]
+        quality = self.quality[qualityIndex]
+        self.title = size + " " + self.object + titleExtension + " " + color + ", " + quality
 
     def setDateDispo(self):
         today = datetime.now()

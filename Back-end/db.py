@@ -55,7 +55,7 @@ class DB:
 
     def insertUserInitialize(self):
         cur = self.conn.cursor()
-        user = User()
+        user = User.user()
         user.setRole()
         user.setUsername()
         user.setPassword()
@@ -69,7 +69,7 @@ class DB:
     def insertObjectInitialize(self):
         cur = self.conn.cursor()
         ownerid = self.getRandomOwnerId()
-        object = Object()
+        object = Object.object()
         object.setTitle()
         object.setDateDispo()
         object.setPrix()
@@ -182,9 +182,9 @@ class DB:
 
 
 
-# testDB = DB()
+testDB = DB()
 # testDB.deleteAllObjects()
-# testDB.insertObjectInitialize()
+testDB.insertObjectInitialize()
 # testDB.insertUserInitialize()
 # testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
