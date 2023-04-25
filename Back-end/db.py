@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 import numpy as np
 
 from object import Object
+from user import User
 
 
 class DB:
@@ -46,9 +47,14 @@ class DB:
         cur.close()
         return rows
 
-    def insertUser(self, userRole:str, username:str, password:str, addr:str):
+    def insertUserInitialize(self):
         cur = self.conn.cursor()
-        user_data = (userRole, username, password, addr)
+        user = User()
+        user.setRole()
+        user.setUsername()
+        user.setPassword()
+        user.setAddr()
+        user_data = (user.role, user.username, user.password, user.addr)
         cur.execute("INSERT INTO users (role, username, password, addr) VALUES (%s, %s, %s, %s)", user_data)
         self.conn.commit()
         cur.close()
@@ -75,7 +81,7 @@ class DB:
         cur.close()
         return result
 
-    def insertObject(self):
+    def insertObjectInitialize(self):
         cur = self.conn.cursor()
         ownerid = self.getRandomUserId()
         object = Object()
@@ -104,8 +110,9 @@ class DB:
 
 
 testDB = DB()
-# testDB.insertUser("user", "test555", "test555", "666 rue 666")
-testDB.insertObject()
+# # testDB.insertUser("user", "test555", "test555", "666 rue 666")
+# testDB.insertObject()
+testDB.insertUserInitialize()
 
 
 
