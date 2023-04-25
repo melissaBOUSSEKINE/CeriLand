@@ -46,6 +46,13 @@ class DB:
         cur.close()
         return result
 
+    def getRandomObjectIdForCommand(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT id FROM objects WHERE id NOT IN (SELECT objectid as id FROM command) ORDER BY RANDOM() LIMIT 1")
+        result = cur.fetchone()
+        cur.close()
+        return result
+
     def insertUserInitialize(self):
         cur = self.conn.cursor()
         user = User()
@@ -135,6 +142,34 @@ class DB:
     def getAllObjects(self):
         cur = self.conn.cursor()
         cur.execute("SELECT * FROM objects")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def login(self, username, password):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def getPanierByUserId(self, userId):
+        cur = self.conn.cursor()
+        cur.execute("select * from panier where userid='" + str(userId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def getCommandsReceivedByOwnerId(self, ownerId):
+        cur = self.conn.cursor()
+        cur.execute("select * from command where ownerid='" + str(ownerId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def getObjectByObjectId(self, objectId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM objects WHERE id='" + str(objectId) + "'")
         rows = cur.fetchall()
         cur.close()
         return rows

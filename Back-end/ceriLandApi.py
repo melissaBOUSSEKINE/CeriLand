@@ -1,6 +1,11 @@
-from flask import Flask
+from flask import Flask, request
+import json
 
 import db
+from object import Object
+from user import User
+from panier import Panier
+from command import Command
 
 app = Flask(__name__)
 
@@ -37,16 +42,61 @@ def initializeAllData():
 
 @app.route('/users')
 def getAllUser():
-    result = db.getAllUser()
-    return result
+    users_result = db.getAllUser()
+    listUser = []
+    for user in users_result:
+        userObj = User(user[0], user[1], user[2], user[3], user[4])
+        listUser.append(userObj)
+    json_users = json.dumps(listUser, default=lambda obj: obj.__dict__, indent=4)
+    return json_users
 
 @app.route('/objects')
 def getAllObjects():
-    result = db.getAllObjects()
-    return result
+    objects_result = db.getAllObjects()
+    listObjects = []
+    for object in objects_result:
+        objectObj = Object(object[0], object[1], object[2], object[3], object[4], object[5])
+        listObjects.append(objectObj)
+    json_objects = json.dumps(listObjects, default=lambda obj: obj.__dict__, indent=4)
+    return json_objects
 
-# @app.route('/user', methods=['POST'])
-# def insertUser():
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    # print(f'Username: {username}, Password: {password}')
+    user_result = db.login(username, password)
+    user = User(user_result[0][0], user_result[0][1], user_result[0][2], user_result[0][3], user_result[0][4])
+    json_user = json.dumps(user, default=lambda obj: obj.__dict__, indent=4)
+    return json_user
+
+@app.route('/user/panier/<int:userId>')
+def getPanierByUserId(userId):
+    userPanier_result = db.getPanierByUserId(userId)
+    listUserPanier = []
+    for item in userPanier_result:
+        userPanier = Panier(item[0], item[1], item[2])
+        listUserPanier.append(userPanier)
+    json_userPanier = json.dumps(listUserPanier, default=lambda obj: obj.__dict__, indent=4)
+    return json_userPanier
+
+@app.route('/user/commands_received/<int:ownerId>')
+def getCommandsReceivedByOwnerId(ownerId):
+    ownerCommandeReceive_result = db.getCommandsReceivedByOwnerId(ownerId)
+    listownerCommandeReceive = []
+    for item in ownerCommandeReceive_result:
+        ownerCommandeReceive = Command(item[0], item[1], item[2], item[3])
+        listownerCommandeReceive.append(ownerCommandeReceive)
+    json_ownerCommandeReceive = json.dumps(listownerCommandeReceive, default=lambda obj: obj.__dict__, indent=4)
+    return json_ownerCommandeReceive
+
+@app.route('/object/<int:objectId>')
+def getObjectByObjectId(objectId):
+    object_result = db.getObjectByObjectId(objectId)
+    object = Object(object_result[0][0], object_result[0][1], object_result[0][2], object_result[0][3], object_result[0][4], object_result[0][5])
+    json_object = json.dumps(object, default=lambda obj: obj.__dict__, indent=4)
+    return json_object
+
 
 if __name__ == '__main__':
     app.run(debug=True)

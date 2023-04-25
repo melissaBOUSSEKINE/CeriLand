@@ -33,6 +33,14 @@ class Object:
         self.date_dispo = ""
         self.prix = ""
 
+    def __init__(self, id, ownerid, img_url, title, date_dispo, prix):
+        self.id = id
+        self.ownerId = ownerid
+        self.img_url = img_url
+        self.title = title
+        self.date_dispo = date_dispo
+        self.prix = prix
+
     def setTitle(self):
         titleExtension = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
         self.title = self.object + titleExtension
@@ -53,5 +61,5 @@ class Object:
     def setImgUrl(self):
         self.img_url = "../../images/" + self.object + ".jpg"
 
-object = Object()
-object.setTitle()
+# object = Object()
+# object.setTitle()
