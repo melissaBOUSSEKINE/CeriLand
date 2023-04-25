@@ -15,19 +15,6 @@ from user import User
 
 class DB:
 
-    # typeObject = {
-    #     "electronic": ["electronic", "electronic1", "electronic2", "electronic3", "electronic4", "electronic5", "electronic6", "electronic7"], 
-    #     "jewelry": ["jewelry", "jewelry1", "jewelry2", "jewelry3"], 
-    #     "bag": ["bag", "bag1"],
-    #     "car": ["car", "car1", "car2", "car3", "car4", "car5"],
-    #     "clothes": ["clothes", "clothes1", "clothes2", "clothes3", "clothes4", "clothes5", "clothes6", "clothes7"],
-    #     "construction": ["construction", "construction1"],
-    #     "maison": ["maison", "maison1", "maison2", "maison3", "maison4", "maison5", "maison6", "maison7"],
-    #     "pc": ["pc", "pc1", "pc2", "pc3"],
-    #     "phone": ["phone", "phone1", "phone2", "phone3"],
-    #     "watch": ["watch1", "watch1", "watch2", "watch3", ]
-    # }
-
     def __init__(self):
         load_dotenv()
         # 建立数据库连接
@@ -38,14 +25,26 @@ class DB:
             password=os.getenv('DB_PASSWORD')
         )
 
-    # def __init__(self):
-
-    def searchAllUser(self):
+    def getRandomUserId(self):
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM users")
-        rows = cur.fetchall()
+        cur.execute("SELECT id FROM users ORDER BY RANDOM() LIMIT 1")
+        result = cur.fetchone()
         cur.close()
-        return rows
+        return result
+
+    def getRandomOwnerId(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT id FROM users WHERE role='owner' ORDER BY RANDOM() LIMIT 1")
+        result = cur.fetchone()
+        cur.close()
+        return result
+
+    def getRandomObjectId(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT id FROM objects ORDER BY RANDOM() LIMIT 1")
+        result = cur.fetchone()
+        cur.close()
+        return result
 
     def insertUserInitialize(self):
         cur = self.conn.cursor()
@@ -58,32 +57,11 @@ class DB:
         cur.execute("INSERT INTO users (role, username, password, addr) VALUES (%s, %s, %s, %s)", user_data)
         self.conn.commit()
         cur.close()
-        return "Add user seccessfully ! "
-
-    def deleteAllUsers(self):
-        cur = self.conn.cursor()
-        cur.execute("DELETE FROM users")
-        self.conn.commit()
-        cur.close()
-
-    def searchAllObjects(self):
-        cur = self.conn.cursor()
-        cur.execute("SELECT * FROM objects")
-        rows = cur.fetchall()
-        cur.close()
-        print(rows)
-        return rows
-
-    def getRandomUserId(self):
-        cur = self.conn.cursor()
-        cur.execute("SELECT id FROM users WHERE role='owner' ORDER BY RANDOM() LIMIT 1")
-        result = cur.fetchone()
-        cur.close()
-        return result
+        return True
 
     def insertObjectInitialize(self):
         cur = self.conn.cursor()
-        ownerid = self.getRandomUserId()
+        ownerid = self.getRandomOwnerId()
         object = Object()
         object.setTitle()
         object.setDateDispo()
@@ -93,13 +71,73 @@ class DB:
         cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo, prix) VALUES (%s, %s, %s, %s, %s)", object_data)
         self.conn.commit()
         cur.close()
-        return "Add user seccessfully ! "
+        return True
+
+    def insertCommandInitialize(self):
+        cur = self.conn.cursor()
+        ownerId = self.getRandomOwnerId()
+        objectId = self.getRandomObjectId()
+        commanderId = self.getRandomUserId()
+        while(commanderId == ownerId) : commanderId = self.getRandomUserId()
+        command_data = (objectId, commanderId, ownerId)
+        cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
+        self.conn.commit()
+        cur.close()
+        return True
+
+    def insertPanierInitialize(self):
+        cur = self.conn.cursor()
+        objectId = self.getRandomObjectId()
+        userId = self.getRandomUserId()
+        panier_data = (objectId, userId)
+        cur.execute("INSERT INTO panier (objectid, userid) VALUES (%s, %s)", panier_data)
+        self.conn.commit()
+        cur.close()
+        return True
+
+    def deleteAllUsers(self):
+        cur = self.conn.cursor()
+        cur.execute("DELETE FROM users")
+        self.conn.commit()
+        cur.close()
 
     def deleteAllObjects(self):
         cur = self.conn.cursor()
         cur.execute("DELETE FROM objects")
         self.conn.commit()
         cur.close()
+
+    def deleteAllCommands(self):
+        cur = self.conn.cursor()
+        cur.execute("DELETE FROM command")
+        self.conn.commit()
+        cur.close()
+
+    def deleteAllPaniers(self):
+        cur = self.conn.cursor()
+        cur.execute("DELETE FROM panier")
+        self.conn.commit()
+        cur.close()
+
+    def deleteAllComments(self):
+        cur = self.conn.cursor()
+        cur.execute("DELETE FROM comments")
+        self.conn.commit()
+        cur.close()
+
+    def getAllUser(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def getAllObjects(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM objects")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
         
     def closeDB(self):
         self.conn.close
@@ -109,11 +147,12 @@ class DB:
 
 
 
-testDB = DB()
-# # testDB.insertUser("user", "test555", "test555", "666 rue 666")
-# testDB.insertObject()
-testDB.insertUserInitialize()
-
+# testDB = DB()
+# testDB.deleteAllObjects()
+# testDB.insertObjectInitialize()
+# testDB.insertUserInitialize()
+# testDB.insertCommandInitialize()
+# testDB.insertPanierInitialize()
 
 
 # ceriland_objects: id, image, nom, date(dispo), prix, id_owner

@@ -25,9 +25,9 @@ class TypeObject(enum.Enum):
 class Object:
 
     def __init__(self):
-        typeObject = random.choice(list(TypeObject))
-        print(random.choice(typeObject.value[0]))
-        self.object = random.choice(typeObject.value[0])
+        self.object = random.choice(random.choice(list(TypeObject)).value)
+        while(len(self.object) == 1 or isinstance(self.object, str))!=True: 
+            self.object = random.choice(random.choice(list(TypeObject)).value)
         self.img_url = ""
         self.title = ""
         self.date_dispo = ""
@@ -52,3 +52,6 @@ class Object:
 
     def setImgUrl(self):
         self.img_url = "../../images/" + self.object + ".jpg"
+
+object = Object()
+object.setTitle()
