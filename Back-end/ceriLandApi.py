@@ -15,6 +15,7 @@ db = db.DB()
 def hello():
     return 'Hello, world!'
 
+# !!!!!! Faire attention de l'utiliser! Sinon tu vas attentre au moins une demi heur pour initialiser tous les données! !!!!!!!!!!! #
 @app.route('/resetAllData')
 def resetAllData():
     db.deleteAllComments()
@@ -30,13 +31,13 @@ def initializeAllData():
     nbObjects = 1
     nbCommands = 1
     nbPanier = 1
-    while (db.insertUserInitialize() and nbUser<501):
+    while (db.insertUserInitialize() and nbUser<500):
         nbUser += 1
-    while (db.insertObjectInitialize() and nbObjects<10001):
+    while (db.insertObjectInitialize() and nbObjects<10000):
         nbObjects += 1
-    while (db.insertCommandInitialize() and nbCommands<231):
+    while (db.insertCommandInitialize() and nbCommands<230):
         nbCommands += 1
-    while (db.insertPanierInitialize() and nbPanier<131):
+    while (db.insertPanierInitialize() and nbPanier<130):
         nbPanier += 1
     return "Add 100 data in users successfully ! \n Add 10000 data in objects successfully ! \n Add 230 data in command successfully ! \n Add 130 data in panier successfully ! \n"
 
@@ -89,6 +90,14 @@ def getCommandsReceivedByOwnerId(ownerId):
         listownerCommandeReceive.append(ownerCommandeReceive)
     json_ownerCommandeReceive = json.dumps(listownerCommandeReceive, default=lambda obj: obj.__dict__, indent=4)
     return json_ownerCommandeReceive
+
+@app.route('/user/<int:userId>')
+def getUserByUserId(userId):
+    user_result = db.getUserByUserId(userId)
+    print(user_result)
+    user = User(user_result[0][0], user_result[0][1], user_result[0][2], user_result[0][3], user_result[0][4])
+    json_user = json.dumps(user, default=lambda obj: obj.__dict__, indent=4)
+    return json_user
 
 @app.route('/object/<int:objectId>')
 def getObjectByObjectId(objectId):

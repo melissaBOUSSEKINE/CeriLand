@@ -46,6 +46,13 @@ class DB:
         cur.close()
         return result
 
+    def getOwnerIdByObjectId(self, objectId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT ownerid FROM objects WHERE id='" + objectId + "'")
+        result = cur.fetchone()
+        cur.close()
+        return result
+
     def getRandomObjectIdForCommand(self):
         cur = self.conn.cursor()
         cur.execute("SELECT id FROM objects WHERE id NOT IN (SELECT objectid as id FROM command) ORDER BY RANDOM() LIMIT 1")
@@ -82,8 +89,9 @@ class DB:
 
     def insertCommandInitialize(self):
         cur = self.conn.cursor()
-        ownerId = self.getRandomOwnerId()
         objectId = self.getRandomObjectId()
+        # print(objectId[0])
+        ownerId = self.getOwnerIdByObjectId(str(objectId[0]))
         commanderId = self.getRandomUserId()
         while(commanderId == ownerId) : commanderId = self.getRandomUserId()
         command_data = (objectId, commanderId, ownerId)
@@ -173,6 +181,13 @@ class DB:
         rows = cur.fetchall()
         cur.close()
         return rows
+
+    def getUserByUserId(self, userId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users WHERE id='" + str(userId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
         
     def closeDB(self):
         self.conn.close
@@ -184,9 +199,9 @@ class DB:
 
 testDB = DB()
 # testDB.deleteAllObjects()
-testDB.insertObjectInitialize()
+# testDB.insertObjectInitialize()
 # testDB.insertUserInitialize()
-# testDB.insertCommandInitialize()
+testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
 
 
