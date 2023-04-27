@@ -87,14 +87,14 @@ public class AccueilController implements Initializable {
     }*/
 
     public void initialize(URL url, ResourceBundle rb) {
-        File folder = new File("C:\\Users\\bouss\\OneDrive\\Images\\Captures d’écran");
+        File folder = new File("..\\..\\images");
         File[] files = folder.listFiles();
 
         int row = 0;
         int col = 0;
 
         for (File file : files) {
-            if (file.isFile() && file.getName().endsWith(".png")) {
+            if (file.isFile() && file.getName().endsWith(".jpg")) {
                 try {
                     // create an ImageView for the image
                     ImageView imageView = new ImageView(new Image(file.toURI().toString()));
