@@ -6,9 +6,6 @@ CREATE TABLE users (
     addr VARCHAR(150) NOT NULL
 );
 
-INSERT INTO users (role, username, password, addr)
-VALUES ('user', 'john_doe', 'password123', '123 Main St, Anytown USA');
-
 -- DROP TABLE users;
 
 CREATE TABLE objects (

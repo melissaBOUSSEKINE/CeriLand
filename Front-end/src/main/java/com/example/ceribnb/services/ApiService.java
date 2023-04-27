@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -15,6 +16,29 @@ import java.util.ArrayList;
 public class ApiService {
 
     private static String baseUrl = "http://127.0.0.1:5000";
+
+    public static User login(String username, String password){
+        User user = new User();
+        try {
+            URL url = new URL(baseUrl + "/login");
+            URLConnection conn = url.openConnection();
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            user = objectMapper.readValue(reader, User.class);
+//            System.out.println(user);
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("username=" + username + "&password=" + password);
+            out.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            user = objectMapper.readValue(reader, User.class);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return user;
+    }
 
     public static void getAllObjects() {
         try {
