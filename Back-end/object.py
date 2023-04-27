@@ -32,17 +32,22 @@ class Object:
 
     object = ""
 
-    def __init__(self, id, ownerid, img_url, title, date_dispo, prix):
+    def __init__(self, id, ownerid, img_url, title, date_dispo, prix, res_status, res_by):
         self.id = id
         self.ownerId = ownerid
         self.img_url = img_url
         self.title = title
         self.date_dispo = date_dispo
         self.prix = prix
+        self.res_status = res_status
+        self.res_by = res_by
     
     @classmethod
     def object(cls):
-        return cls(None, None, None, None, None, None)
+        return cls(None, None, None, None, None, None, None, None)
+
+    def setResStatus(self):
+        self.res_status = "1"
 
     def setTitle(self):
         self.object = random.choice(random.choice(list(TypeObject)).value)
