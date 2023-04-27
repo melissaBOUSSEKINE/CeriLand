@@ -12,11 +12,13 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
-public class GenerateApiObject {
+public class ApiService {
+
+    private static String baseUrl = "http://127.0.0.1:5000";
 
     public static void getAllObjects() {
         try {
-            URL url = new URL("http://127.0.0.1:5000/objects");
+            URL url = new URL(baseUrl + "/objects");
             URLConnection conn = url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             ObjectMapper objectMapper = new ObjectMapper();
@@ -29,7 +31,7 @@ public class GenerateApiObject {
     public static ArrayList<Command> getCommandsReceivedByUserId(int ownerId) {
         ArrayList<Command> commands = new ArrayList<>();
         try {
-            URL url = new URL("http://127.0.0.1:5000/user/commands_received/" + ownerId);
+            URL url = new URL(baseUrl + "/user/commands_received/" + ownerId);
             URLConnection conn = url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             ObjectMapper objectMapper = new ObjectMapper();
@@ -43,7 +45,7 @@ public class GenerateApiObject {
     public static ArrayList<Panier> getPanierByUserId(int userId) {
         ArrayList<Panier> paniers = new ArrayList<>();
         try {
-            URL url = new URL("http://127.0.0.1:5000/user/panier/" + userId);
+            URL url = new URL(baseUrl + "/user/panier/" + userId);
             URLConnection conn = url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             ObjectMapper objectMapper = new ObjectMapper();
@@ -57,7 +59,7 @@ public class GenerateApiObject {
     public static ArrayList<Comment> getCommentsByObjectId(int objectId) {
         ArrayList<Comment> comments = new ArrayList<>();
         try {
-            URL url = new URL("http://127.0.0.1:5000/object/comments/" + objectId);
+            URL url = new URL(baseUrl + "/object/comments/" + objectId);
             URLConnection conn = url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             ObjectMapper objectMapper = new ObjectMapper();
@@ -68,7 +70,46 @@ public class GenerateApiObject {
         return comments;
     }
 
-//    public static User getUserByUserId(int userId) {
-//
-//    }
+    public static User getUserByUserId(int userId) {
+        User user = new User();
+        try {
+            URL url = new URL(baseUrl + "/user/" + userId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            user = objectMapper.readValue(reader, User.class);
+            System.out.println(user);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return user;
+    }
+
+    public static ArrayList<User> getUsersByUsername(String username) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/users/" + username);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            users = objectMapper.readValue(reader, new TypeReference<ArrayList<User>>(){});
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return users;
+    }
+
+    public static ArrayList<Object> getObjectsByTitle(String title){
+        ArrayList<Object> objects = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/objects/" + title);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            objects = objectMapper.readValue(reader, new TypeReference<ArrayList<Object>>(){});
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return objects;
+    }
 }
