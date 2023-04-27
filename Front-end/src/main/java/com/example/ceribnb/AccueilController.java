@@ -94,6 +94,14 @@ public class AccueilController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
 
+        User user_connect = ApiService.login("Renee Johnson", "F8puycQSYjIf9vW");
+
+//        System.out.println(user_connect.getId());
+//        System.out.println(user_connect.getRole());
+//        System.out.println(user_connect.getUsername());
+//        System.out.println(user_connect.getPassword());
+//        System.out.println(user_connect.getAddr());
+
         ApiService.getAllObjects();
 
         ArrayList<Command> commands = ApiService.getCommandsReceivedByUserId(41457);
@@ -106,7 +114,7 @@ public class AccueilController implements Initializable {
 
         ArrayList<User> users = ApiService.getUsersByUsername("Johnson");
 
-        ArrayList<Object> objects = ApiService.getObjectsByTitle("watch3PFZ1B8Kw0h");
+        ArrayList<Object> objects = ApiService.getObjectsByTitle("watch");
 
 //        for(Object objectItem: objects){
 //            System.out.println(objectItem.getId());
@@ -177,7 +185,7 @@ public class AccueilController implements Initializable {
         int row = 0;
         int col = 0;
 
-        for (int i = 0; i < VarGlobal.allObjects.size(); i++) {
+        for (int i = 0; i < 300; i++) {
             ImageView imageView = new ImageView(imageHashMap.get(VarGlobal.allObjects.get(i).getImgUrl()));
             imageView.setFitWidth(133);
             imageView.setFitHeight(92);
