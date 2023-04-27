@@ -3,21 +3,26 @@ package com.example.ceribnb;
 import com.example.ceribnb.models.*;
 import com.example.ceribnb.models.Object;
 import com.example.ceribnb.services.ApiService;
+import com.example.ceribnb.services.VarGlobal;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
@@ -144,66 +149,93 @@ public class AccueilController implements Initializable {
 //            System.out.println(command.getCommandId());
 //        }
 
-//        for (Object object: VarGlobal.allObjects) {
-//            System.out.println("id: " + object.getId());
-//            System.out.println("ownerid: " + object.getOwnerId());
-//            System.out.println("img_url: " + object.getImgUrl());
-//            System.out.println("title: " + object.getTitle());
-//            System.out.println("date_dispo: " + object.getDateDispo());
-//            System.out.println("prix: " + object.getPrix());
-//            System.out.println(" ******************************** ");
-//        }
-
         File folder = new File("..\\..\\images");
         File[] files = folder.listFiles();
+        System.out.println("Nombre images: " + files.length);
+        System.out.println("Nombre objects: " + VarGlobal.allObjects.size());
+
+        HashMap<String, Image> imageHashMap = new HashMap<>();
+
+        for (File file : files) {
+            if (file.isFile() && file.getName().endsWith(".jpg")) {
+                String relativePath = "";
+                String absolutPath = "";
+                try {
+                    Path filePath = Paths.get(file.getCanonicalPath());
+                    Path currentPath = Paths.get("").toAbsolutePath();
+                    Path relative = currentPath.relativize(filePath);
+                    relativePath = relative.toString();
+                    absolutPath = filePath.toString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Image image = new Image(absolutPath);
+                imageHashMap.put(relativePath, image);
+            }
+        }
 
         int row = 0;
         int col = 0;
 
-        for (File file : files) {
-            if (file.isFile() && file.getName().endsWith(".jpg")) {
-                try {
-                    // create an ImageView for the image
-                    ImageView imageView = new ImageView(new Image(file.toURI().toString()));
-                    imageView.setFitWidth(133);
-                    imageView.setFitHeight(92);
-                    // create a label for the title
-                    // label = new Label(file.getName());
-                    // label.setAlignment(Pos.CENTER);
-                    // add the image and title to a VBox
-                    VBox vBox = new VBox(imageView);
-                    vBox.setAlignment(Pos.CENTER);
-                    // add the VBox to the grid pane
-                    imageGrid.add(vBox, col, row);
-                    col++;
-                    // if we reach the end of a row, move to the next row and reset the column count
-                    if (col == imageGrid.getColumnCount()) {
-                        col = 0;
-                        row++;
-                    }
-                    // add an event handler to open a new window when the image is clicked
-                    imageView.setOnMouseClicked(e -> {
-                        try {
-                            // create a new stage and set the scene
-                            Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("test.fxml"));
-                            Parent root = loader.load();
-                            Scene scene = new Scene(root);
-                            stage.setScene(scene);
-                            // get the controller and set the image for the new window
-                            TestController controller = loader.getController();
-                            controller.setImage(imageView.getImage(), file);
-                            // show the new window
-                            stage.show();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        for (int i = 0; i < VarGlobal.allObjects.size(); i++) {
+            ImageView imageView = new ImageView(imageHashMap.get(VarGlobal.allObjects.get(i).getImgUrl()));
+            imageView.setFitWidth(133);
+            imageView.setFitHeight(92);
+            TextField textField = new TextField(Integer.toString(i));
+            VBox vBox = new VBox(imageView, textField);
+            vBox.setAlignment(Pos.CENTER);
+            imageGrid.add(vBox, col, row);
+            col++;
+            if (col == imageGrid.getColumnCount()){
+                col = 0;
+                row++;
             }
         }
+
+//        for (File file : files) {
+//            if (file.isFile() && file.getName().endsWith(".jpg")) {
+//                try {
+//                    // create an ImageView for the image
+//                    ImageView imageView = new ImageView(new Image(file.toURI().toString()));
+//                    imageView.setFitWidth(133);
+//                    imageView.setFitHeight(92);
+//                    // create a label for the title
+//                    // label = new Label(file.getName());
+//                    // label.setAlignment(Pos.CENTER);
+//                    // add the image and title to a VBox
+//                    VBox vBox = new VBox(imageView);
+//                    vBox.setAlignment(Pos.CENTER);
+//                    // add the VBox to the grid pane
+//                    imageGrid.add(vBox, col, row);
+//                    col++;
+//                    // if we reach the end of a row, move to the next row and reset the column count
+//                    if (col == imageGrid.getColumnCount()) {
+//                        col = 0;
+//                        row++;
+//                    }
+//                    // add an event handler to open a new window when the image is clicked
+//                    imageView.setOnMouseClicked(e -> {
+//                        try {
+//                            // create a new stage and set the scene
+//                            Stage stage = new Stage();
+//                            FXMLLoader loader = new FXMLLoader(getClass().getResource("test.fxml"));
+//                            Parent root = loader.load();
+//                            Scene scene = new Scene(root);
+//                            stage.setScene(scene);
+//                            // get the controller and set the image for the new window
+//                            TestController controller = loader.getController();
+//                            controller.setImage(imageView.getImage(), file);
+//                            // show the new window
+//                            stage.show();
+//                        } catch (IOException ex) {
+//                            ex.printStackTrace();
+//                        }
+//                    });
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
     }
 
 
