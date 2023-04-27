@@ -16,8 +16,28 @@ public class Object {
     private String dateDispo;
     @JsonProperty("prix")
     private String prix;
+    @JsonProperty("res_status")
+    private String resStatus;
+    @JsonProperty("res_by")
+    private String resBy;
 
     public Object(){}
+
+    public String getResStatus() {
+        return resStatus;
+    }
+
+    public void setResStatus(String resStatus) {
+        this.resStatus = resStatus;
+    }
+
+    public String getResBy() {
+        return resBy;
+    }
+
+    public void setResBy(String resBy) {
+        this.resBy = resBy;
+    }
 
     public String getId() {
         return id;

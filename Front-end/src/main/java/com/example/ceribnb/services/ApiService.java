@@ -22,10 +22,6 @@ public class ApiService {
         try {
             URL url = new URL(baseUrl + "/login");
             URLConnection conn = url.openConnection();
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            user = objectMapper.readValue(reader, User.class);
-//            System.out.println(user);
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());

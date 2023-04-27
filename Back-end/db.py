@@ -81,8 +81,9 @@ class DB:
         object.setDateDispo()
         object.setPrix()
         object.setImgUrl()
-        object_data = (ownerid, object.img_url, object.title, object.date_dispo, object.prix)
-        cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo, prix) VALUES (%s, %s, %s, %s, %s)", object_data)
+        object.setResStatus()
+        object_data = (ownerid, object.img_url, object.title, object.date_dispo, object.prix, object.res_status)
+        cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo, prix, res_status) VALUES (%s, %s, %s, %s, %s, %s)", object_data)
         self.conn.commit()
         cur.close()
         return True
@@ -91,14 +92,15 @@ class DB:
         cur = self.conn.cursor()
         objectId = self.getRandomObjectId()
         # print(objectId[0])
-        ownerId = self.getOwnerIdByObjectId(str(objectId[0]))
-        commanderId = self.getRandomUserId()
-        while(commanderId == ownerId) : commanderId = self.getRandomUserId()
-        command_data = (objectId, commanderId, ownerId)
-        cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
-        self.conn.commit()
-        cur.close()
-        return True
+        if objectId != None:
+            ownerId = self.getOwnerIdByObjectId(str(objectId[0]))
+            commanderId = self.getRandomUserId()
+            while(commanderId == ownerId) : commanderId = self.getRandomUserId()
+            command_data = (objectId, commanderId, ownerId)
+            cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
+            self.conn.commit()
+            cur.close()
+            return True
 
     def insertPanierInitialize(self):
         cur = self.conn.cursor()

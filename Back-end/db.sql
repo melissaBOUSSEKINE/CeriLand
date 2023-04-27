@@ -14,7 +14,9 @@ CREATE TABLE objects (
     img_url VARCHAR(500) NOT NULL,
     title VARCHAR(50) NOT NULL,
     date_dispo VARCHAR(150) NOT NULL,
-    prix VARCHAR(20) NOT NULL
+    prix VARCHAR(20) NOT NULL,
+    res_status VARCHAR(10) NOT NULL,
+    res_by INTEGER REFERENCES users(id)
 );
 
 CREATE TABLE command (
