@@ -66,7 +66,6 @@ def getAllObjects():
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
-    # print(f'Username: {username}, Password: {password}')
     user_result = db.login(username, password)
     user = User(user_result[0][0], user_result[0][1], user_result[0][2], user_result[0][3], user_result[0][4])
     json_user = json.dumps(user, default=lambda obj: obj.__dict__, indent=4)
@@ -100,12 +99,32 @@ def getUserByUserId(userId):
     json_user = json.dumps(user, default=lambda obj: obj.__dict__, indent=4)
     return json_user
 
+@app.route('/users/<string:username>')
+def getUserByUsername(username):
+    users_result = db.getUserByUsername(username)
+    listUserCloset = []
+    for item in users_result:
+        user = User(item[0], item[1], item[2], item[3], item[4])
+        listUserCloset.append(user)
+    json_users = json.dumps(listUserCloset, default=lambda obj: obj.__dict__, indent=4)
+    return json_users
+
 @app.route('/object/<int:objectId>')
 def getObjectByObjectId(objectId):
     object_result = db.getObjectByObjectId(objectId)
     object = Object(object_result[0][0], object_result[0][1], object_result[0][2], object_result[0][3], object_result[0][4], object_result[0][5])
     json_object = json.dumps(object, default=lambda obj: obj.__dict__, indent=4)
     return json_object
+
+@app.route('/objects/<string:title>')
+def getObjectsByTitle(title):
+    objects_result = db.getObjectsByTitle(title)
+    listObjectsCloset = []
+    for item in objects_result:
+        object = Object(item[0], item[1], item[2], item[3], item[4], item[5])
+        listObjectsCloset.append(object)
+    json_users = json.dumps(listObjectsCloset, default=lambda obj: obj.__dict__, indent=4)
+    return json_users
 
 @app.route('/object/comments/<int:objectId>')
 def getCommentByObjectId(objectId):

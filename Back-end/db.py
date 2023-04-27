@@ -182,9 +182,23 @@ class DB:
         cur.close()
         return rows
 
+    def getObjectsByTitle(self, title):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM objects WHERE title ILIKE '%" + title + "%'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
     def getUserByUserId(self, userId):
         cur = self.conn.cursor()
         cur.execute("SELECT * FROM users WHERE id='" + str(userId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def getUserByUsername(self, username):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users WHERE username ILIKE '%" + str(username) + "%'")
         rows = cur.fetchall()
         cur.close()
         return rows
