@@ -37,4 +37,5 @@ CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     objectID INTEGER REFERENCES objects(id),
     userID INTEGER REFERENCES users(id)
+    comment VARCHAR(500) NOT NULL,
 );

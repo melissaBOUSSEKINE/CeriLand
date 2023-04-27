@@ -71,7 +71,7 @@ class Object:
         self.prix = round(random.uniform(10, 999), 2)
 
     def setImgUrl(self):
-        self.img_url = "../../images/" + self.object + ".jpg"
+        self.img_url = "..\\..\\images\\" + self.object + ".jpg"
 
 # object = Object()
 # object.setTitle()

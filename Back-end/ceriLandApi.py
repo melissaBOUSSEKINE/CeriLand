@@ -6,6 +6,7 @@ from object import Object
 from user import User
 from panier import Panier
 from command import Command
+from comment import Comment
 
 app = Flask(__name__)
 
@@ -18,9 +19,9 @@ def hello():
 # !!!!!! Faire attention de l'utiliser! Sinon tu vas attentre au moins une demi heur pour initialiser tous les données! !!!!!!!!!!! #
 @app.route('/resetAllData')
 def resetAllData():
-    db.deleteAllComments()
     db.deleteAllPaniers()
     db.deleteAllCommands()
+    db.deleteAllComments()
     db.deleteAllObjects()
     db.deleteAllUsers()
     return "All data has been reseted !"
@@ -105,6 +106,16 @@ def getObjectByObjectId(objectId):
     object = Object(object_result[0][0], object_result[0][1], object_result[0][2], object_result[0][3], object_result[0][4], object_result[0][5])
     json_object = json.dumps(object, default=lambda obj: obj.__dict__, indent=4)
     return json_object
+
+@app.route('/object/comments/<int:objectId>')
+def getCommentByObjectId(objectId):
+    comments_result = db.getCommentsByObjectId(objectId)
+    commentsOfObject = []
+    for item in comments_result:
+        comment = Comment(item[0], item[1], item[2], item[3])
+        commentsOfObject.append(comment)
+    json_commentOfObject = json.dumps(commentsOfObject, default=lambda obj: obj.__dict__, indent=4)
+    return json_commentOfObject
 
 
 if __name__ == '__main__':
