@@ -188,6 +188,13 @@ class DB:
         rows = cur.fetchall()
         cur.close()
         return rows
+
+    def getCommentsByObjectId(self, objectId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM comments WHERE objectid='" + str(objectId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
         
     def closeDB(self):
         self.conn.close

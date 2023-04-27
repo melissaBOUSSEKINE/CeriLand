@@ -1,5 +1,10 @@
 package com.example.ceribnb;
 
+import com.example.ceribnb.models.*;
+import com.example.ceribnb.models.Object;
+import com.example.ceribnb.services.GenerateApiObject;
+import com.example.ceribnb.services.VarGlobal;
+import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -16,9 +21,14 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
+
+import java.net.*;
+import java.io.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AccueilController implements Initializable {
 
@@ -26,8 +36,6 @@ public class AccueilController implements Initializable {
     private GridPane imageGrid;
     @FXML
     private Button button_connexion;
-
-
 
     @FXML
     void choixRole(javafx.event.ActionEvent event) {
@@ -50,7 +58,8 @@ public class AccueilController implements Initializable {
 
         }
     }
-    @Override
+
+//    @Override
    /* public void initialize(URL url, ResourceBundle rb) {
         File folder = new File("C:\\Users\\bouss\\OneDrive\\Images\\Captures d’écran");
         File[] files = folder.listFiles();
@@ -87,6 +96,54 @@ public class AccueilController implements Initializable {
     }*/
 
     public void initialize(URL url, ResourceBundle rb) {
+
+        GenerateApiObject.getAllObjects();
+
+        ArrayList<Command> commands = GenerateApiObject.getCommandsReceivedByUserId(41457);
+
+        ArrayList<Panier> paniers = GenerateApiObject.getPanierByUserId(41174);
+
+        ArrayList<Comment> comments = GenerateApiObject.getCommentsByObjectId(55680);
+
+        for(Comment comment: comments){
+            System.out.println(comment.getId());
+            System.out.println(comment.getObjectId());
+            System.out.println(comment.getUserId());
+            System.out.println(comment.getComment());
+        }
+
+//        for(Panier panier: paniers){
+//            System.out.println(panier.getId());
+//            System.out.println(panier.getObjectId());
+//            System.out.println(panier.getUserId());
+//        }
+
+
+//        for(Command command: commands){
+//            System.out.println(command.getId());
+//            System.out.println(command.getObjectId());
+//            System.out.println(command.getCommandId());
+//        }
+
+//        for (User user: VarGlobal.allUser) {
+//            System.out.println("id: " + user.getId());
+//            System.out.println("role: " + user.getRole());
+//            System.out.println("username: " + user.getUsername());
+//            System.out.println("password: " + user.getPassword());
+//            System.out.println("addr: " + user.getAddr());
+//            System.out.println(" ******************************** ");
+//        }
+
+//        for (Object object: VarGlobal.allObjects) {
+//            System.out.println("id: " + object.getId());
+//            System.out.println("ownerid: " + object.getOwnerId());
+//            System.out.println("img_url: " + object.getImgUrl());
+//            System.out.println("title: " + object.getTitle());
+//            System.out.println("date_dispo: " + object.getDateDispo());
+//            System.out.println("prix: " + object.getPrix());
+//            System.out.println(" ******************************** ");
+//        }
+
         File folder = new File("..\\..\\images");
         File[] files = folder.listFiles();
 
