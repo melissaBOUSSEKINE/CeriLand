@@ -112,6 +112,27 @@ class DB:
         cur.close()
         return True
 
+    def insertToPanier(self, objectId, userId):
+        checkIsExisted = testDB.checkObjectInPanier(objectId, userId)[0][0]
+        if checkIsExisted == 0:
+            cur = self.conn.cursor()
+            panier_data = (objectId, userId)
+            cur.execute("INSERT INTO panier (objectid, userid) VALUES (%s, %s)", panier_data)
+            self.conn.commit()
+            cur.close()
+            return "Ajouter succèss! "
+        return "L'object exist déjà dans le panier de user" + userId + "! "
+
+    def removeFromPanier(self, objectId, userId):
+        checkIsExisted = testDB.checkObjectInPanier(objectId, userId)[0][0]
+        if checkIsExisted == 1:
+            cur = self.conn.cursor()
+            cur.execute("DELETE FROM panier WHERE objectid='" + str(objectId) + "' AND userid='" + str(userId) + "'")
+            self.conn.commit()
+            cur.close()
+            return "Remove from panier succèss! "
+        return "L'object n'exist pas dans le panier de user" + userId + "! "
+
     def deleteAllUsers(self):
         cur = self.conn.cursor()
         cur.execute("DELETE FROM users")
@@ -170,6 +191,13 @@ class DB:
         cur.close()
         return rows
 
+    def checkObjectInPanier(self, objectid, userid):
+        cur = self.conn.cursor()
+        cur.execute("select count(*) from panier where objectid='" + str(objectid) + "' AND userid='" + str(userid) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
     def getCommandsReceivedByOwnerId(self, ownerId):
         cur = self.conn.cursor()
         cur.execute("select * from command where ownerid='" + str(ownerId) + "'")
@@ -211,6 +239,21 @@ class DB:
         rows = cur.fetchall()
         cur.close()
         return rows
+
+    def addCommentToObject(self, objectId, userId, comment):
+        cur = self.conn.cursor()
+        comment_data = (objectId, userId, comment)
+        cur.execute("INSERT INTO comments (objectid, userid, comment) VALUES (%s, %s, %s)", comment_data)
+        self.conn.commit()
+        cur.close()
+        return True
+
+    def deleteCommentToObject(self, objectId, userId, comment):
+        cur = self.conn.cursor()
+        cur.execute("DELETE FROM comments WHERE objectid='" + str(objectId) + "' AND userid='" + str(userId) + "' AND comment='" + comment + "'")
+        self.conn.commit()
+        cur.close()
+        return True
         
     def closeDB(self):
         self.conn.close
@@ -224,8 +267,9 @@ testDB = DB()
 # testDB.deleteAllObjects()
 # testDB.insertObjectInitialize()
 # testDB.insertUserInitialize()
-testDB.insertCommandInitialize()
+# testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
+# print(testDB.checkObjectInPanier(93323, 43113)[0][0])
 
 
 # ceriland_objects: id, image, nom, date(dispo), prix, id_owner

@@ -109,6 +109,20 @@ def getUserByUsername(username):
     json_users = json.dumps(listUserCloset, default=lambda obj: obj.__dict__, indent=4)
     return json_users
 
+@app.route('/user/panier/add_object', methods=['POST'])
+def addObjectInPanier():
+    objectId = request.form.get('objectid')
+    userId = request.form.get('userid')
+    res = db.insertToPanier(objectId, userId)
+    return {"response": res}
+
+@app.route('/user/panier/remove_object', methods=['POST'])
+def removeObjectInPanier():
+    objectId = request.form.get('objectid')
+    userId = request.form.get('userid')
+    res = db.removeFromPanier(objectId, userId)
+    return {"response": res}
+
 @app.route('/object/<int:objectId>')
 def getObjectByObjectId(objectId):
     object_result = db.getObjectByObjectId(objectId)
@@ -135,6 +149,24 @@ def getCommentByObjectId(objectId):
         commentsOfObject.append(comment)
     json_commentOfObject = json.dumps(commentsOfObject, default=lambda obj: obj.__dict__, indent=4)
     return json_commentOfObject
+
+@app.route('/object/comments/add_comment', methods=['POST'])
+def addCommentToObject():
+    objectId = request.form.get('objectid')
+    userId = request.form.get('userid')
+    comment = request.form.get('comment')
+    if db.addCommentToObject(objectId, userId, comment):
+        return {"res": "Ajout commentaire succèss! "}
+    return {"res": "Quelques erreurs produit! "}
+
+@app.route('/object/comments/delete_comment', methods=['POST'])
+def deleteCommentToObject():
+    objectId = request.form.get('objectid')
+    userId = request.form.get('userid')
+    comment = request.form.get('comment')
+    if db.deleteCommentToObject(objectId, userId, comment):
+        return {"res": "Supprimer commentaire succèss! "}
+    return {"res": "Quelques erreurs produit! "}
 
 
 if __name__ == '__main__':
