@@ -78,12 +78,13 @@ class DB:
         ownerid = self.getRandomOwnerId()
         object = Object.object()
         object.setTitle()
-        object.setDateDispo()
+        object.setDateDispoStart()
+        object.setDateDispoEnd()
         object.setPrix()
         object.setImgUrl()
         object.setResStatus()
-        object_data = (ownerid, object.img_url, object.title, object.date_dispo, object.prix, object.res_status)
-        cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo, prix, res_status) VALUES (%s, %s, %s, %s, %s, %s)", object_data)
+        object_data = (ownerid, object.img_url, object.title, object.date_dispo_start, object.date_dispo_end, object.prix, object.res_status)
+        cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo_start, date_dispo_end, prix, res_status) VALUES (%s, %s, %s, %s, %s, %s, %s)", object_data)
         self.conn.commit()
         cur.close()
         return True
@@ -92,15 +93,15 @@ class DB:
         cur = self.conn.cursor()
         objectId = self.getRandomObjectId()
         # print(objectId[0])
-        if objectId != None:
-            ownerId = self.getOwnerIdByObjectId(str(objectId[0]))
-            commanderId = self.getRandomUserId()
-            while(commanderId == ownerId) : commanderId = self.getRandomUserId()
-            command_data = (objectId, commanderId, ownerId)
-            cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
-            self.conn.commit()
-            cur.close()
-            return True
+        # if objectId != None:
+        ownerId = self.getOwnerIdByObjectId(str(objectId[0]))[0][0]
+        commanderId = self.getRandomUserId()
+        while(commanderId == ownerId) : commanderId = self.getRandomUserId()
+        command_data = (objectId, commanderId, ownerId)
+        cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
+        self.conn.commit()
+        cur.close()
+        return True
 
     def insertPanierInitialize(self):
         cur = self.conn.cursor()
@@ -111,6 +112,27 @@ class DB:
         self.conn.commit()
         cur.close()
         return True
+
+    def insertToPanier(self, objectId, userId):
+        checkIsExisted = testDB.checkObjectInPanier(objectId, userId)[0][0]
+        if checkIsExisted == 0:
+            cur = self.conn.cursor()
+            panier_data = (objectId, userId)
+            cur.execute("INSERT INTO panier (objectid, userid) VALUES (%s, %s)", panier_data)
+            self.conn.commit()
+            cur.close()
+            return "Ajouter succèss! "
+        return "L'object exist déjà dans le panier de user" + userId + "! "
+
+    def removeFromPanier(self, objectId, userId):
+        checkIsExisted = testDB.checkObjectInPanier(objectId, userId)[0][0]
+        if checkIsExisted == 1:
+            cur = self.conn.cursor()
+            cur.execute("DELETE FROM panier WHERE objectid='" + str(objectId) + "' AND userid='" + str(userId) + "'")
+            self.conn.commit()
+            cur.close()
+            return "Remove from panier succèss! "
+        return "L'object n'exist pas dans le panier de user" + userId + "! "
 
     def deleteAllUsers(self):
         cur = self.conn.cursor()
@@ -170,12 +192,61 @@ class DB:
         cur.close()
         return rows
 
+    def checkObjectInPanier(self, objectid, userid):
+        cur = self.conn.cursor()
+        cur.execute("select count(*) from panier where objectid='" + str(objectid) + "' AND userid='" + str(userid) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
     def getCommandsReceivedByOwnerId(self, ownerId):
         cur = self.conn.cursor()
         cur.execute("select * from command where ownerid='" + str(ownerId) + "'")
         rows = cur.fetchall()
         cur.close()
         return rows
+
+    def getCommandsSentByCommanderId(self, commanderId):
+        cur = self.conn.cursor()
+        cur.execute("select * from command where commanderid='" + str(commanderId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def deleteCommand(self, objectId, commanderId):
+        cur = self.conn.cursor()
+        cur.execute("DELETE FROM command WHERE objectid='" + str(objectId) + "' AND commanderid='" + str(commanderId) + "'")
+        self.conn.commit()
+        cur.close()
+        return True
+
+    def checkUserAlreadyCommandObject(self, objectId, commanderId):
+        cur = self.conn.cursor()
+        cur.execute("select count(*) from command where objectid='" + str(objectId) + "' and commanderid='" + str(commanderId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def addIntoCommand(self, objectId, commanderId):
+        cur = self.conn.cursor()
+        ownerId = self.getOwnerIdByObjectId(objectId)[0][0]
+        command_data = (objectId, commanderId, ownerId)
+        cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
+        self.conn.commit()
+        cur.close()
+        return True
+
+    def updateObjectResStatus(self, ownerid, objectId, commanderId):
+        print(ownerid)
+        print(self.getOwnerIdByObjectId(objectId)[0][0])
+        if str(ownerid) == str(self.getOwnerIdByObjectId(objectId)[0][0]):
+            cur = self.conn.cursor()
+            cur.execute("DELETE FROM command WHERE objectid='" + str(objectId) + "'")
+            cur.execute("UPDATE objects SET res_status='0',res_by='" + str(commanderId) + "' WHERE id='" + str(objectId) + "'")
+            self.conn.commit()
+            cur.close()
+            return True
+        return False
 
     def getObjectByObjectId(self, objectId):
         cur = self.conn.cursor()
@@ -211,7 +282,29 @@ class DB:
         rows = cur.fetchall()
         cur.close()
         return rows
+
+    def addCommentToObject(self, objectId, userId, comment):
+        cur = self.conn.cursor()
+        comment_data = (objectId, userId, comment)
+        cur.execute("INSERT INTO comments (objectid, userid, comment) VALUES (%s, %s, %s)", comment_data)
+        self.conn.commit()
+        cur.close()
+        return True
+
+    def deleteCommentToObject(self, objectId, userId, comment):
+        cur = self.conn.cursor()
+        cur.execute("DELETE FROM comments WHERE objectid='" + str(objectId) + "' AND userid='" + str(userId) + "' AND comment='" + comment + "'")
+        self.conn.commit()
+        cur.close()
+        return True
         
+    def getOwnerIdByObjectId(self, objectId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT ownerid FROM objects WHERE id='" + str(objectId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
     def closeDB(self):
         self.conn.close
 
@@ -222,10 +315,12 @@ class DB:
 
 testDB = DB()
 # testDB.deleteAllObjects()
-# testDB.insertObjectInitialize()
+testDB.insertObjectInitialize()
 # testDB.insertUserInitialize()
-testDB.insertCommandInitialize()
+# testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
+# print(testDB.checkObjectInPanier(93323, 43113)[0][0])
+# print(testDB.getOwnerIdByObjectId(98936)[0][0])
 
 
 # ceriland_objects: id, image, nom, date(dispo), prix, id_owner
