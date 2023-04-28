@@ -57,7 +57,7 @@ def getAllObjects():
     objects_result = db.getAllObjects()
     listObjects = []
     for object in objects_result:
-        objectObj = Object(object[0], object[1], object[2], object[3], object[4], object[5])
+        objectObj = Object(object[0], object[1], object[2], object[3], object[4], object[5], object[6], object[7])
         listObjects.append(objectObj)
     json_objects = json.dumps(listObjects, default=lambda obj: obj.__dict__, indent=4)
     return json_objects
@@ -121,7 +121,7 @@ def getObjectsByTitle(title):
     objects_result = db.getObjectsByTitle(title)
     listObjectsCloset = []
     for item in objects_result:
-        object = Object(item[0], item[1], item[2], item[3], item[4], item[5])
+        object = Object(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7])
         listObjectsCloset.append(object)
     json_users = json.dumps(listObjectsCloset, default=lambda obj: obj.__dict__, indent=4)
     return json_users
