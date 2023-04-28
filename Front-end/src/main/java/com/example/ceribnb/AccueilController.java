@@ -94,23 +94,23 @@ public class AccueilController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
 
-        User user_connect = ApiService.login("Renee Johnson", "F8puycQSYjIf9vW");
+        User user_connect = ApiService.login("Ella Fisher", "YwnJbcu1PjMQH29");
 
-//        System.out.println(user_connect.getId());
-//        System.out.println(user_connect.getRole());
-//        System.out.println(user_connect.getUsername());
-//        System.out.println(user_connect.getPassword());
-//        System.out.println(user_connect.getAddr());
+        System.out.println(user_connect.getId());
+        System.out.println(user_connect.getRole());
+        System.out.println(user_connect.getUsername());
+        System.out.println(user_connect.getPassword());
+        System.out.println(user_connect.getAddr());
 
         ApiService.getAllObjects();
 
-        ArrayList<Command> commands = ApiService.getCommandsReceivedByUserId(41457);
+        ArrayList<Command> commands = ApiService.getCommandsReceivedByUserId(43112);
 
-        ArrayList<Panier> paniers = ApiService.getPanierByUserId(41174);
+        ArrayList<Panier> paniers = ApiService.getPanierByUserId(43113);
 
-        ArrayList<Comment> comments = ApiService.getCommentsByObjectId(55680);
+//        ArrayList<Comment> comments = ApiService.getCommentsByObjectId(55680);
 
-        User user = ApiService.getUserByUserId(41045);
+        User user = ApiService.getUserByUserId(43045);
 
         ArrayList<User> users = ApiService.getUsersByUsername("Johnson");
 
