@@ -59,7 +59,7 @@ def getAllObjects():
     objects_result = db.getAllObjects()
     listObjects = []
     for object in objects_result:
-        objectObj = Object(object[0], object[1], object[2], object[3], object[4], object[5], object[6], object[7])
+        objectObj = Object(object[0], object[1], object[2], object[3], object[4], object[5], object[6], object[7], object[8])
         listObjects.append(objectObj)
     json_objects = json.dumps(listObjects, default=lambda obj: obj.__dict__, indent=4)
     return json_objects

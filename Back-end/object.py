@@ -1,14 +1,11 @@
-import psycopg2
 from dotenv import load_dotenv
-import os
-import requests
-from PIL import Image
-import io
 import random
 import string
 from datetime import datetime, timedelta
-import numpy as np
 import enum
+import time
+import datetime
+import random
 
 class TypeObject(enum.Enum):
     ELECTRONIC = ["electronic", "electronic1", "electronic2", "electronic3", "electronic4", "electronic5", "electronic6", "electronic7"]
@@ -32,19 +29,20 @@ class Object:
 
     object = ""
 
-    def __init__(self, id, ownerid, img_url, title, date_dispo, prix, res_status, res_by):
+    def __init__(self, id, ownerid, img_url, title, date_dispo_start, date_dispo_end, prix, res_status, res_by):
         self.id = id
         self.ownerId = ownerid
         self.img_url = img_url
         self.title = title
-        self.date_dispo = date_dispo
+        self.date_dispo_start = date_dispo_start
+        self.date_dispo_end = date_dispo_end
         self.prix = prix
         self.res_status = res_status
         self.res_by = res_by
     
     @classmethod
     def object(cls):
-        return cls(None, None, None, None, None, None, None, None)
+        return cls(None, None, None, None, None, None, None, None, None)
 
     def setResStatus(self):
         self.res_status = "1"
@@ -62,15 +60,25 @@ class Object:
         quality = self.quality[qualityIndex]
         self.title = size + " " + self.object + titleExtension + " " + color + ", " + quality
 
-    def setDateDispo(self):
-        today = datetime.now()
-        future_date = today + timedelta(days=random.randint(10, 30))
-        days = random.randint(20, 100)
-        end_date = future_date + timedelta(days=days)
-        start_date_str = future_date.strftime('%Y-%m-%d')
-        end_date_str = end_date.strftime('%Y-%m-%d')
-        time_period = f"{start_date_str} - {end_date_str}"
-        self.date_dispo = time_period
+    def setDateDispoStart(self):
+        today = datetime.date.today()
+        days = random.randint(15, 30)
+        delta = datetime.timedelta(days=days)
+        future_date = today + delta
+        future_datetime = datetime.datetime.combine(future_date, datetime.time.min)
+        future_timestamp = time.mktime(future_datetime.timetuple())
+        print(future_timestamp)
+        self.date_dispo_start = future_timestamp
+
+    def setDateDispoEnd(self):
+        today = datetime.date.today()
+        days = random.randint(30, 300)
+        delta = datetime.timedelta(days=days)
+        future_date = today + delta
+        future_datetime = datetime.datetime.combine(future_date, datetime.time.min)
+        future_timestamp = time.mktime(future_datetime.timetuple())
+        print(future_timestamp)
+        self.date_dispo_end = future_timestamp
 
     def setPrix(self):
         self.prix = round(random.uniform(10, 999), 2)
@@ -78,5 +86,6 @@ class Object:
     def setImgUrl(self):
         self.img_url = "..\\..\\images\\" + self.object + ".jpg"
 
-# object = Object()
-# object.setTitle()
+object = Object.object()
+object.setDateDispoStart()
+object.setDateDispoEnd()

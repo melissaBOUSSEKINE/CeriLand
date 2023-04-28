@@ -78,12 +78,13 @@ class DB:
         ownerid = self.getRandomOwnerId()
         object = Object.object()
         object.setTitle()
-        object.setDateDispo()
+        object.setDateDispoStart()
+        object.setDateDispoEnd()
         object.setPrix()
         object.setImgUrl()
         object.setResStatus()
-        object_data = (ownerid, object.img_url, object.title, object.date_dispo, object.prix, object.res_status)
-        cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo, prix, res_status) VALUES (%s, %s, %s, %s, %s, %s)", object_data)
+        object_data = (ownerid, object.img_url, object.title, object.date_dispo_start, object.date_dispo_end, object.prix, object.res_status)
+        cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo_start, date_dispo_end, prix, res_status) VALUES (%s, %s, %s, %s, %s, %s, %s)", object_data)
         self.conn.commit()
         cur.close()
         return True
@@ -92,15 +93,15 @@ class DB:
         cur = self.conn.cursor()
         objectId = self.getRandomObjectId()
         # print(objectId[0])
-        if objectId != None:
-            ownerId = self.getOwnerIdByObjectId(str(objectId[0]))
-            commanderId = self.getRandomUserId()
-            while(commanderId == ownerId) : commanderId = self.getRandomUserId()
-            command_data = (objectId, commanderId, ownerId)
-            cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
-            self.conn.commit()
-            cur.close()
-            return True
+        # if objectId != None:
+        ownerId = self.getOwnerIdByObjectId(str(objectId[0]))[0][0]
+        commanderId = self.getRandomUserId()
+        while(commanderId == ownerId) : commanderId = self.getRandomUserId()
+        command_data = (objectId, commanderId, ownerId)
+        cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
+        self.conn.commit()
+        cur.close()
+        return True
 
     def insertPanierInitialize(self):
         cur = self.conn.cursor()
@@ -314,12 +315,12 @@ class DB:
 
 testDB = DB()
 # testDB.deleteAllObjects()
-# testDB.insertObjectInitialize()
+testDB.insertObjectInitialize()
 # testDB.insertUserInitialize()
 # testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
 # print(testDB.checkObjectInPanier(93323, 43113)[0][0])
-print(testDB.getOwnerIdByObjectId(98936)[0][0])
+# print(testDB.getOwnerIdByObjectId(98936)[0][0])
 
 
 # ceriland_objects: id, image, nom, date(dispo), prix, id_owner
