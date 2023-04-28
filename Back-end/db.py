@@ -205,6 +205,48 @@ class DB:
         cur.close()
         return rows
 
+    def getCommandsSentByCommanderId(self, commanderId):
+        cur = self.conn.cursor()
+        cur.execute("select * from command where commanderid='" + str(commanderId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def deleteCommand(self, objectId, commanderId):
+        cur = self.conn.cursor()
+        cur.execute("DELETE FROM command WHERE objectid='" + str(objectId) + "' AND commanderid='" + str(commanderId) + "'")
+        self.conn.commit()
+        cur.close()
+        return True
+
+    def checkUserAlreadyCommandObject(self, objectId, commanderId):
+        cur = self.conn.cursor()
+        cur.execute("select count(*) from command where objectid='" + str(objectId) + "' and commanderid='" + str(commanderId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
+    def addIntoCommand(self, objectId, commanderId):
+        cur = self.conn.cursor()
+        ownerId = self.getOwnerIdByObjectId(objectId)[0][0]
+        command_data = (objectId, commanderId, ownerId)
+        cur.execute("INSERT INTO command (objectid, commanderid, ownerid) VALUES (%s, %s, %s)", command_data)
+        self.conn.commit()
+        cur.close()
+        return True
+
+    def updateObjectResStatus(self, ownerid, objectId, commanderId):
+        print(ownerid)
+        print(self.getOwnerIdByObjectId(objectId)[0][0])
+        if str(ownerid) == str(self.getOwnerIdByObjectId(objectId)[0][0]):
+            cur = self.conn.cursor()
+            cur.execute("DELETE FROM command WHERE objectid='" + str(objectId) + "'")
+            cur.execute("UPDATE objects SET res_status='0',res_by='" + str(commanderId) + "' WHERE id='" + str(objectId) + "'")
+            self.conn.commit()
+            cur.close()
+            return True
+        return False
+
     def getObjectByObjectId(self, objectId):
         cur = self.conn.cursor()
         cur.execute("SELECT * FROM objects WHERE id='" + str(objectId) + "'")
@@ -255,6 +297,13 @@ class DB:
         cur.close()
         return True
         
+    def getOwnerIdByObjectId(self, objectId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT ownerid FROM objects WHERE id='" + str(objectId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
     def closeDB(self):
         self.conn.close
 
@@ -270,6 +319,7 @@ testDB = DB()
 # testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
 # print(testDB.checkObjectInPanier(93323, 43113)[0][0])
+print(testDB.getOwnerIdByObjectId(98936)[0][0])
 
 
 # ceriland_objects: id, image, nom, date(dispo), prix, id_owner
