@@ -21,7 +21,9 @@ import java.io.*;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -105,6 +107,38 @@ public class AccueilController implements Initializable {
 ////        System.out.println(user_connect.getAddr());
 //
         ApiService.getAllObjects();
+
+//        ArrayList<Object> objects = ApiService.getObjectsByTitle("watch");
+
+//        for(Object objectItem: objects){
+//            System.out.println(objectItem.getId());
+//            System.out.println(objectItem.getOwnerId());
+//            System.out.println(objectItem.getImgUrl());
+//            System.out.println(objectItem.getTitle());
+//            System.out.println(objectItem.getDateDispo());
+//            System.out.println(objectItem.getPrix());
+//        }
+
+//        Object object = ApiService.getObjectById(10006);
+//        System.out.println(object.getId());
+//        System.out.println(object.getTitle());
+//        System.out.println(object.getImgUrl());
+//        System.out.println(object.getPrix());
+//        System.out.println(object.getOwnerId());
+//        System.out.println(object.getDateDispoStart());
+//        long timeStamp = (long) Double.parseDouble(object.getDateDispoStart()) * 1000;
+//        Date date = new Date(timeStamp);
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String dateString = sdf.format(date);
+//        System.out.println(dateString);
+//        System.out.println(object.getDateDispoEnd());
+//        long timeStampEnd = (long) Double.parseDouble(object.getDateDispoEnd()) * 1000;
+//        Date dateEnd = new Date(timeStampEnd);
+//        SimpleDateFormat sdfEnd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String dateEndString = sdfEnd.format(dateEnd);
+//        System.out.println(dateEndString);
+//        System.out.println(object.getResStatus());
+//        System.out.println(object.getResBy());
 //
 //        ArrayList<Command> commands = ApiService.getCommandsReceivedByUserId(43112);
 //        for(Command command: commands){
@@ -139,6 +173,20 @@ public class AccueilController implements Initializable {
 //        ArrayList<Panier> paniers = ApiService.getPanierByUserId(43113);
 //
 ////        ArrayList<Comment> comments = ApiService.getCommentsByObjectId(55680);
+//        for(Comment comment: comments){
+//            System.out.println(comment.getId());
+//            System.out.println(comment.getObjectId());
+//            System.out.println(comment.getUserId());
+//            System.out.println(comment.getComment());
+//        }
+//        Response res = ApiService.addCommentToObject(15590, 618, "Très bien!");
+//        System.out.println(res.getErrorCode());
+//        System.out.println(res.getErrorMsg());
+
+        Response res = ApiService.deleteCommentToObject(2);
+        System.out.println(res.getErrorCode());
+        System.out.println(res.getErrorMsg());
+
 //
 //        User user = ApiService.getUserByUserId(504);
 //
@@ -151,17 +199,6 @@ public class AccueilController implements Initializable {
 //        System.out.println(res1.getErrorMsg());
 //
 //        ArrayList<User> users = ApiService.getUsersByUsername("Johnson");
-//
-//        ArrayList<Object> objects = ApiService.getObjectsByTitle("watch");
-
-//        for(Object objectItem: objects){
-//            System.out.println(objectItem.getId());
-//            System.out.println(objectItem.getOwnerId());
-//            System.out.println(objectItem.getImgUrl());
-//            System.out.println(objectItem.getTitle());
-//            System.out.println(objectItem.getDateDispo());
-//            System.out.println(objectItem.getPrix());
-//        }
 
 //        for(User userItem: users){
 //            System.out.println(userItem.getId());
@@ -175,12 +212,6 @@ public class AccueilController implements Initializable {
 //        System.out.println(user.getUsername());
 //        System.out.println(user.getAddr());
 
-//        for(Comment comment: comments){
-//            System.out.println(comment.getId());
-//            System.out.println(comment.getObjectId());
-//            System.out.println(comment.getUserId());
-//            System.out.println(comment.getComment());
-//        }
 
 //        for(Panier panier: paniers){
 //            System.out.println(panier.getId());

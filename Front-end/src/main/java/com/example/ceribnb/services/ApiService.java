@@ -17,6 +17,9 @@ public class ApiService {
 
     private static String baseUrl = "http://127.0.0.1:5000";
 
+    /**
+     * Gestion les users
+     */
     public static User login(String username, String password){
         User user = new User();
         try {
@@ -36,6 +39,38 @@ public class ApiService {
         return user;
     }
 
+    public static User getUserByUserId(int userId) {
+        User user = new User();
+        try {
+            URL url = new URL(baseUrl + "/user/" + userId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            user = objectMapper.readValue(reader, User.class);
+            System.out.println(user);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return user;
+    }
+
+    public static ArrayList<User> getUsersByUsername(String username) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/users/" + username);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            users = objectMapper.readValue(reader, new TypeReference<ArrayList<User>>(){});
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return users;
+    }
+
+    /**
+     * Gestion les objects
+     */
     public static void getAllObjects() {
         try {
             URL url = new URL(baseUrl + "/objects");
@@ -46,6 +81,34 @@ public class ApiService {
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
         }
+    }
+
+    public static ArrayList<Object> getObjectsByTitle(String title){
+        ArrayList<Object> objects = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/objects/" + title);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            objects = objectMapper.readValue(reader, new TypeReference<ArrayList<Object>>(){});
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return objects;
+    }
+
+    public static Object getObjectById(int objectId){
+        Object object = new Object();
+        try {
+            URL url = new URL(baseUrl + "/object/" + objectId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            object = objectMapper.readValue(reader, Object.class);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return object;
     }
 
     /**
@@ -233,46 +296,43 @@ public class ApiService {
         return comments;
     }
 
-    public static User getUserByUserId(int userId) {
-        User user = new User();
+    public static Response addCommentToObject(int objectId, int userId, String comment){
+        Response res = new Response();
         try {
-            URL url = new URL(baseUrl + "/user/" + userId);
+            URL url = new URL(baseUrl + "/object/comments/add_comment");
             URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("objectid=" + objectId + "&userid=" + userId + "&comment=" + comment);
+            out.close();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             ObjectMapper objectMapper = new ObjectMapper();
-            user = objectMapper.readValue(reader, User.class);
-            System.out.println(user);
+            res = objectMapper.readValue(reader, Response.class);
+            System.out.println(res);
         }catch (IOException e){
             System.err.println("Error: " + e.getMessage());
         }
-        return user;
+        return res;
     }
 
-    public static ArrayList<User> getUsersByUsername(String username) {
-        ArrayList<User> users = new ArrayList<>();
+    public static Response deleteCommentToObject(int commentId){
+        Response res = new Response();
         try {
-            URL url = new URL(baseUrl + "/users/" + username);
+            URL url = new URL(baseUrl + "/object/comments/delete_comment");
             URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("commentid=" + commentId);
+            out.close();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             ObjectMapper objectMapper = new ObjectMapper();
-            users = objectMapper.readValue(reader, new TypeReference<ArrayList<User>>(){});
-        } catch (IOException e) {
+            res = objectMapper.readValue(reader, Response.class);
+            System.out.println(res);
+        }catch (IOException e){
             System.err.println("Error: " + e.getMessage());
         }
-        return users;
-    }
-
-    public static ArrayList<Object> getObjectsByTitle(String title){
-        ArrayList<Object> objects = new ArrayList<>();
-        try {
-            URL url = new URL(baseUrl + "/objects/" + title);
-            URLConnection conn = url.openConnection();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            ObjectMapper objectMapper = new ObjectMapper();
-            objects = objectMapper.readValue(reader, new TypeReference<ArrayList<Object>>(){});
-        } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
-        }
-        return objects;
+        return res;
     }
 }

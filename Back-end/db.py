@@ -303,9 +303,9 @@ class DB:
         cur.close()
         return True
 
-    def deleteCommentToObject(self, objectId, userId, comment):
+    def deleteCommentToObject(self, commentId):
         cur = self.conn.cursor()
-        cur.execute("DELETE FROM comments WHERE objectid='" + str(objectId) + "' AND userid='" + str(userId) + "' AND comment='" + comment + "'")
+        cur.execute("DELETE FROM comments WHERE id='" + commentId + "'")
         self.conn.commit()
         cur.close()
         return True

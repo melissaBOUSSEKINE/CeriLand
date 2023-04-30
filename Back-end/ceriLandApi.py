@@ -216,7 +216,7 @@ def getUserByUsername(username):
 @app.route('/object/<int:objectId>')
 def getObjectByObjectId(objectId):
     object_result = db.getObjectByObjectId(objectId)
-    object = Object(object_result[0][0], object_result[0][1], object_result[0][2], object_result[0][3], object_result[0][4], object_result[0][5])
+    object = Object(object_result[0][0], object_result[0][1], object_result[0][2], object_result[0][3], object_result[0][4], object_result[0][5], object_result[0][6], object_result[0][7], object_result[0][8])
     json_object = json.dumps(object, default=lambda obj: obj.__dict__, indent=4)
     return json_object
 
@@ -250,17 +250,27 @@ def addCommentToObject():
     userId = request.form.get('userid')
     comment = request.form.get('comment')
     if db.addCommentToObject(objectId, userId, comment):
-        return {"res": "Ajout commentaire succèss! ",}
-    return {"res": "Quelques erreurs produit! "}
+        return {
+            "error_code": 0,
+            "res_message": "Ajout commentaire succèss! ",
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 @app.route('/object/comments/delete_comment', methods=['POST'])
 def deleteCommentToObject():
-    objectId = request.form.get('objectid')
-    userId = request.form.get('userid')
-    comment = request.form.get('comment')
-    if db.deleteCommentToObject(objectId, userId, comment):
-        return {"res": "Supprimer commentaire succèss! "}
-    return {"res": "Quelques erreurs produit! "}
+    commentId = request.form.get('commentid')
+    if db.deleteCommentToObject(commentId):
+        return {
+            "error_code": 0,
+            "res_message": "Supprimer commentaire succèss! "
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 
 
