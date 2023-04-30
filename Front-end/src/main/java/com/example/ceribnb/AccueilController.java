@@ -94,31 +94,53 @@ public class AccueilController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
 
-        User user_connect = ApiService.login("Justin Mason", "xZqGsB1a2IGsE8K");
 
-//        System.out.println(user_connect.getId());
-//        System.out.println(user_connect.getRole());
-//        System.out.println(user_connect.getUsername());
-//        System.out.println(user_connect.getPassword());
-//        System.out.println(user_connect.getAddr());
 
+//        User user_connect = ApiService.login("Justin Mason", "xZqGsB1a2IGsE8K");
+//
+////        System.out.println(user_connect.getId());
+////        System.out.println(user_connect.getRole());
+////        System.out.println(user_connect.getUsername());
+////        System.out.println(user_connect.getPassword());
+////        System.out.println(user_connect.getAddr());
+//
         ApiService.getAllObjects();
+//
+//        ArrayList<Command> commands = ApiService.getCommandsReceivedByUserId(43112);
+//        for(Command command: commands){
+//            System.out.println(command.getId());
+//            System.out.println(command.getObjectId());
+//            System.out.println(command.getCommandId());
+//        }
 
-        ArrayList<Command> commands = ApiService.getCommandsReceivedByUserId(43112);
+//        ArrayList<Command> commands = ApiService.getCommandsSentByCommanderId(536);
+//        for(Command command: commands){
+//            System.out.println(command.getId());
+//            System.out.println(command.getObjectId());
+//            System.out.println(command.getCommandId());
+//        }
 
-        ArrayList<Panier> paniers = ApiService.getPanierByUserId(43113);
-
-//        ArrayList<Comment> comments = ApiService.getCommentsByObjectId(55680);
-
-        User user = ApiService.getUserByUserId(504);
-
-        Response res = ApiService.addObjectIntoPanier(10014, 761);
+//        Response res = ApiService.cancelCommand(11769, 536);
 //        System.out.println(res.getErrorCode());
 //        System.out.println(res.getErrorMsg());
-
-        ArrayList<User> users = ApiService.getUsersByUsername("Johnson");
-
-        ArrayList<Object> objects = ApiService.getObjectsByTitle("watch");
+//
+//        ArrayList<Panier> paniers = ApiService.getPanierByUserId(43113);
+//
+////        ArrayList<Comment> comments = ApiService.getCommentsByObjectId(55680);
+//
+//        User user = ApiService.getUserByUserId(504);
+//
+//        Response res = ApiService.addObjectIntoPanier(10014, 761);
+//        System.out.println(res.getErrorCode());
+//        System.out.println(res.getErrorMsg());
+//
+//        Response res1 = ApiService.removeObjectFromPanier(10014, 761);
+//        System.out.println(res1.getErrorCode());
+//        System.out.println(res1.getErrorMsg());
+//
+//        ArrayList<User> users = ApiService.getUsersByUsername("Johnson");
+//
+//        ArrayList<Object> objects = ApiService.getObjectsByTitle("watch");
 
 //        for(Object objectItem: objects){
 //            System.out.println(objectItem.getId());
@@ -154,12 +176,6 @@ public class AccueilController implements Initializable {
 //            System.out.println(panier.getUserId());
 //        }
 
-
-//        for(Command command: commands){
-//            System.out.println(command.getId());
-//            System.out.println(command.getObjectId());
-//            System.out.println(command.getCommandId());
-//        }
 
         File folder = new File("..\\..\\images");
         File[] files = folder.listFiles();

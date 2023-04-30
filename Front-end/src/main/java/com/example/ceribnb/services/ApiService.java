@@ -48,6 +48,9 @@ public class ApiService {
         }
     }
 
+    /**
+     * Gestion les commandes
+     */
     public static ArrayList<Command> getCommandsReceivedByUserId(int ownerId) {
         ArrayList<Command> commands = new ArrayList<>();
         try {
@@ -62,6 +65,43 @@ public class ApiService {
         return commands;
     }
 
+    public static ArrayList<Command> getCommandsSentByCommanderId(int commanderId) {
+        ArrayList<Command> commands = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/user/commands_sent/" + commanderId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            commands = objectMapper.readValue(reader, new TypeReference<ArrayList<Command>>(){});
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return commands;
+    }
+
+    public static Response cancelCommand(int objectId, int commanderId){
+        Response res = new Response();
+        try {
+            URL url = new URL(baseUrl + "/user/command_sent/cancel");
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("objectId=" + objectId + "&commanderId=" + commanderId);
+            out.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            res = objectMapper.readValue(reader, Response.class);
+            System.out.println(res);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return res;
+    }
+
+    /**
+     * Gestion les panier
+     */
     public static ArrayList<Panier> getPanierByUserId(int userId) {
         ArrayList<Panier> paniers = new ArrayList<>();
         try {
@@ -96,6 +136,29 @@ public class ApiService {
         return res;
     }
 
+    public static Response removeObjectFromPanier(int objectId, int userId){
+        Response res = new Response();
+        try {
+            URL url = new URL(baseUrl + "/user/panier/remove_object");
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("objectid=" + objectId + "&userid=" + userId);
+            out.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            res = objectMapper.readValue(reader, Response.class);
+            System.out.println(res);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return res;
+    }
+
+    /**
+     * Gestion les commentaires
+     */
     public static ArrayList<Comment> getCommentsByObjectId(int objectId) {
         ArrayList<Comment> comments = new ArrayList<>();
         try {

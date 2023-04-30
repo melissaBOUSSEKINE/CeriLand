@@ -98,7 +98,7 @@ def removeObjectInPanier():
     objectId = request.form.get('objectid')
     userId = request.form.get('userid')
     res = db.removeFromPanier(objectId, userId)
-    return {"response": res}
+    return res
 
 # 
 # Gestion les commands
@@ -123,13 +123,19 @@ def getCommandsSentByCommanderId(commanderId):
     json_userCommandeSent = json.dumps(listUserCommandeSent, default=lambda obj: obj.__dict__, indent=4)
     return json_userCommandeSent
 
-@app.route('/user/command_sent/cencel', methods=['POST'])
+@app.route('/user/command_sent/cancel', methods=['POST'])
 def cencelCommand():
     objectId = request.form.get('objectId')
     commanderId = request.form.get('commanderId')
     if db.deleteCommand(objectId, commanderId):
-        return {"res": "Annuler la commande succèss !"}
-    return {"res": "Quelques erreurs produit! "}
+        return {
+            "error_code": 0,
+            "res_message": "Annuler la commande succèss !"
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 @app.route('/user/send_command', methods=['POST'])
 def sendCommand():

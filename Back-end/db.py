@@ -137,8 +137,14 @@ class DB:
             cur.execute("DELETE FROM panier WHERE objectid='" + str(objectId) + "' AND userid='" + str(userId) + "'")
             self.conn.commit()
             cur.close()
-            return "Remove from panier succèss! "
-        return "L'object n'exist pas dans le panier de user" + userId + "! "
+            return {
+                "error_code": 0,
+                "res_message": "Remove from panier succèss! "
+            }
+        return {
+            "error_code": 1,
+            "res_message": "L'object n'exist pas dans le panier de user" + userId + "! "
+        }
 
     def deleteAllUsers(self):
         cur = self.conn.cursor()
