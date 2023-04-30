@@ -12,8 +12,11 @@ public class Object {
     private String imgUrl;
     @JsonProperty("title")
     private String title;
-    @JsonProperty("date_dispo")
-    private String dateDispo;
+    @JsonProperty("date_dispo_start")
+    private String dateDispoStart;
+
+    @JsonProperty("date_dispo_end")
+    private String dateDispoEnd;
     @JsonProperty("prix")
     private String prix;
     @JsonProperty("res_status")
@@ -71,12 +74,20 @@ public class Object {
         this.title = title;
     }
 
-    public String getDateDispo() {
-        return dateDispo;
+    public String getDateDispoStart() {
+        return dateDispoStart;
     }
 
-    public void setDateDispo(String dateDispo) {
-        this.dateDispo = dateDispo;
+    public void setDateDispoStart(String dateDispoStart) {
+        this.dateDispoStart = dateDispoStart;
+    }
+
+    public String getDateDispoEnd() {
+        return dateDispoEnd;
+    }
+
+    public void setDateDispoEnd(String dateDispoEnd) {
+        this.dateDispoEnd = dateDispoEnd;
     }
 
     public String getPrix() {

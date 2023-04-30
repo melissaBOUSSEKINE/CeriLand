@@ -76,6 +76,26 @@ public class ApiService {
         return paniers;
     }
 
+    public static Response addObjectIntoPanier(int objectId, int userId){
+        Response res = new Response();
+        try {
+            URL url = new URL(baseUrl + "/user/panier/add_object");
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("objectid=" + objectId + "&userid=" + userId);
+            out.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            res = objectMapper.readValue(reader, Response.class);
+            System.out.println(res);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return res;
+    }
+
     public static ArrayList<Comment> getCommentsByObjectId(int objectId) {
         ArrayList<Comment> comments = new ArrayList<>();
         try {

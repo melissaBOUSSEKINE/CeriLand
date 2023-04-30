@@ -94,13 +94,13 @@ public class AccueilController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
 
-        User user_connect = ApiService.login("Ella Fisher", "YwnJbcu1PjMQH29");
+        User user_connect = ApiService.login("Justin Mason", "xZqGsB1a2IGsE8K");
 
-        System.out.println(user_connect.getId());
-        System.out.println(user_connect.getRole());
-        System.out.println(user_connect.getUsername());
-        System.out.println(user_connect.getPassword());
-        System.out.println(user_connect.getAddr());
+//        System.out.println(user_connect.getId());
+//        System.out.println(user_connect.getRole());
+//        System.out.println(user_connect.getUsername());
+//        System.out.println(user_connect.getPassword());
+//        System.out.println(user_connect.getAddr());
 
         ApiService.getAllObjects();
 
@@ -110,7 +110,11 @@ public class AccueilController implements Initializable {
 
 //        ArrayList<Comment> comments = ApiService.getCommentsByObjectId(55680);
 
-        User user = ApiService.getUserByUserId(43045);
+        User user = ApiService.getUserByUserId(504);
+
+        Response res = ApiService.addObjectIntoPanier(10014, 761);
+//        System.out.println(res.getErrorCode());
+//        System.out.println(res.getErrorMsg());
 
         ArrayList<User> users = ApiService.getUsersByUsername("Johnson");
 

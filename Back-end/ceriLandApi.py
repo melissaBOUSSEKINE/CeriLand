@@ -91,7 +91,7 @@ def addObjectInPanier():
     objectId = request.form.get('objectid')
     userId = request.form.get('userid')
     res = db.insertToPanier(objectId, userId)
-    return {"response": res}
+    return res
 
 @app.route('/user/panier/remove_object', methods=['POST'])
 def removeObjectInPanier():
@@ -198,7 +198,7 @@ def getObjectsByTitle(title):
     objects_result = db.getObjectsByTitle(title)
     listObjectsCloset = []
     for item in objects_result:
-        object = Object(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7])
+        object = Object(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8])
         listObjectsCloset.append(object)
     json_users = json.dumps(listObjectsCloset, default=lambda obj: obj.__dict__, indent=4)
     return json_users
@@ -223,7 +223,7 @@ def addCommentToObject():
     userId = request.form.get('userid')
     comment = request.form.get('comment')
     if db.addCommentToObject(objectId, userId, comment):
-        return {"res": "Ajout commentaire succèss! "}
+        return {"res": "Ajout commentaire succèss! ",}
     return {"res": "Quelques erreurs produit! "}
 
 @app.route('/object/comments/delete_comment', methods=['POST'])
