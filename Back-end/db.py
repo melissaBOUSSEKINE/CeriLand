@@ -185,7 +185,7 @@ class DB:
 
     def getAllObjects(self):
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM objects")
+        cur.execute("SELECT * FROM objects WHERE NOT res_status='0'")
         rows = cur.fetchall()
         cur.close()
         return rows

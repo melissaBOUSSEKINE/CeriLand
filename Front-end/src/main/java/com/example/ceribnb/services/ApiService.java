@@ -119,6 +119,46 @@ public class ApiService {
         return res;
     }
 
+    public static Response valideCommand(int ownerId, int objectId, int commanderId){
+        Response res = new Response();
+        try {
+            URL url = new URL(baseUrl + "/user/commands_received/valide");
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("ownerId=" + ownerId + "&objectId=" + objectId + "&commanderId=" + commanderId);
+            out.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            res = objectMapper.readValue(reader, Response.class);
+            System.out.println(res);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return res;
+    }
+
+    public static Response refuseCommand(int ownerId, int objectId, int commanderId){
+        Response res = new Response();
+        try {
+            URL url = new URL(baseUrl + "/user/commands_received/refuse");
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("ownerId=" + ownerId + "&objectId=" + objectId + "&commanderId=" + commanderId);
+            out.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            res = objectMapper.readValue(reader, Response.class);
+            System.out.println(res);
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return res;
+    }
+
     /**
      * Gestion les panier
      */

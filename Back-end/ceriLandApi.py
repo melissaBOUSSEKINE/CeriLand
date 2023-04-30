@@ -162,8 +162,14 @@ def valideCommand():
     objectId = request.form.get('objectId')
     commanderId = request.form.get('commanderId')
     if db.updateObjectResStatus(ownerid, objectId, commanderId):
-        return {"res": "Valider la commande succèss !"}
-    return {"res": "Quelques erreurs produit! "}
+        return {
+            "error_code": 0,
+            "res_message": "Valider la commande succèss !"
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 @app.route('/user/commands_received/refuse', methods=['POST'])
 def refuseCommand():
@@ -172,8 +178,14 @@ def refuseCommand():
     commanderId = request.form.get('commanderId')
     if str(db.getOwnerIdByObjectId(objectId)[0][0]) == str(ownerid):
         if db.deleteCommand(objectId, commanderId):
-            return {"res": "La commande est refusé !"}
-    return {"res": "Quelques erreurs produit! "}
+            return {
+                "error_code": 0,
+                "res_message": "La commande est refusé !"
+            }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 
 # 

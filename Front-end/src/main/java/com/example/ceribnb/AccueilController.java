@@ -127,6 +127,14 @@ public class AccueilController implements Initializable {
 //        Response res = ApiService.sendCommand(11769, 536);
 //        System.out.println(res.getErrorCode());
 //        System.out.println(res.getErrorMsg());
+
+//        Response res = ApiService.valideCommand(860, 15590, 618);
+//        System.out.println(res.getErrorCode());
+//        System.out.println(res.getErrorMsg());
+
+//        Response res = ApiService.refuseCommand(738, 11619, 786);
+//        System.out.println(res.getErrorCode());
+//        System.out.println(res.getErrorMsg());
 //
 //        ArrayList<Panier> paniers = ApiService.getPanierByUserId(43113);
 //
