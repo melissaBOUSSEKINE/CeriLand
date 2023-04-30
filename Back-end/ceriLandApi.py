@@ -143,9 +143,18 @@ def sendCommand():
     commanderId = request.form.get('commanderId')
     if db.checkUserAlreadyCommandObject(objectId, commanderId)[0][0] == 0:
         if db.addIntoCommand(objectId, commanderId):
-            return {"res": "Envoyer la commande succèss !"}
-        return {"res": "Quelques erreurs produit! "}
-    return {"res": "Vous avez déjà commandé cet objet, veuillez attendre le réponse de propriétaire! "}
+            return {
+                "error_code": 0,
+                "res_message": "Envoyer la commande succèss !"
+            }
+        return {
+            "error_code": 1,
+            "res_message": "Quelques erreurs produit! "
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Vous avez déjà commandé cet objet, veuillez attendre le réponse de propriétaire! "
+    }
 
 @app.route('/user/commands_received/valide', methods=['POST'])
 def valideCommand():

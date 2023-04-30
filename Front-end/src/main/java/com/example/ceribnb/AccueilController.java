@@ -123,6 +123,10 @@ public class AccueilController implements Initializable {
 //        Response res = ApiService.cancelCommand(11769, 536);
 //        System.out.println(res.getErrorCode());
 //        System.out.println(res.getErrorMsg());
+
+//        Response res = ApiService.sendCommand(11769, 536);
+//        System.out.println(res.getErrorCode());
+//        System.out.println(res.getErrorMsg());
 //
 //        ArrayList<Panier> paniers = ApiService.getPanierByUserId(43113);
 //
