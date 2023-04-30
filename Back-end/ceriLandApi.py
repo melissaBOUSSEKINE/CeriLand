@@ -91,14 +91,14 @@ def addObjectInPanier():
     objectId = request.form.get('objectid')
     userId = request.form.get('userid')
     res = db.insertToPanier(objectId, userId)
-    return {"response": res}
+    return res
 
 @app.route('/user/panier/remove_object', methods=['POST'])
 def removeObjectInPanier():
     objectId = request.form.get('objectid')
     userId = request.form.get('userid')
     res = db.removeFromPanier(objectId, userId)
-    return {"response": res}
+    return res
 
 # 
 # Gestion les commands
@@ -123,13 +123,19 @@ def getCommandsSentByCommanderId(commanderId):
     json_userCommandeSent = json.dumps(listUserCommandeSent, default=lambda obj: obj.__dict__, indent=4)
     return json_userCommandeSent
 
-@app.route('/user/command_sent/cencel', methods=['POST'])
+@app.route('/user/command_sent/cancel', methods=['POST'])
 def cencelCommand():
     objectId = request.form.get('objectId')
     commanderId = request.form.get('commanderId')
     if db.deleteCommand(objectId, commanderId):
-        return {"res": "Annuler la commande succèss !"}
-    return {"res": "Quelques erreurs produit! "}
+        return {
+            "error_code": 0,
+            "res_message": "Annuler la commande succèss !"
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 @app.route('/user/send_command', methods=['POST'])
 def sendCommand():
@@ -137,9 +143,18 @@ def sendCommand():
     commanderId = request.form.get('commanderId')
     if db.checkUserAlreadyCommandObject(objectId, commanderId)[0][0] == 0:
         if db.addIntoCommand(objectId, commanderId):
-            return {"res": "Envoyer la commande succèss !"}
-        return {"res": "Quelques erreurs produit! "}
-    return {"res": "Vous avez déjà commandé cet objet, veuillez attendre le réponse de propriétaire! "}
+            return {
+                "error_code": 0,
+                "res_message": "Envoyer la commande succèss !"
+            }
+        return {
+            "error_code": 1,
+            "res_message": "Quelques erreurs produit! "
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Vous avez déjà commandé cet objet, veuillez attendre le réponse de propriétaire! "
+    }
 
 @app.route('/user/commands_received/valide', methods=['POST'])
 def valideCommand():
@@ -147,8 +162,14 @@ def valideCommand():
     objectId = request.form.get('objectId')
     commanderId = request.form.get('commanderId')
     if db.updateObjectResStatus(ownerid, objectId, commanderId):
-        return {"res": "Valider la commande succèss !"}
-    return {"res": "Quelques erreurs produit! "}
+        return {
+            "error_code": 0,
+            "res_message": "Valider la commande succèss !"
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 @app.route('/user/commands_received/refuse', methods=['POST'])
 def refuseCommand():
@@ -157,8 +178,14 @@ def refuseCommand():
     commanderId = request.form.get('commanderId')
     if str(db.getOwnerIdByObjectId(objectId)[0][0]) == str(ownerid):
         if db.deleteCommand(objectId, commanderId):
-            return {"res": "La commande est refusé !"}
-    return {"res": "Quelques erreurs produit! "}
+            return {
+                "error_code": 0,
+                "res_message": "La commande est refusé !"
+            }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 
 # 
@@ -189,7 +216,7 @@ def getUserByUsername(username):
 @app.route('/object/<int:objectId>')
 def getObjectByObjectId(objectId):
     object_result = db.getObjectByObjectId(objectId)
-    object = Object(object_result[0][0], object_result[0][1], object_result[0][2], object_result[0][3], object_result[0][4], object_result[0][5])
+    object = Object(object_result[0][0], object_result[0][1], object_result[0][2], object_result[0][3], object_result[0][4], object_result[0][5], object_result[0][6], object_result[0][7], object_result[0][8])
     json_object = json.dumps(object, default=lambda obj: obj.__dict__, indent=4)
     return json_object
 
@@ -198,7 +225,7 @@ def getObjectsByTitle(title):
     objects_result = db.getObjectsByTitle(title)
     listObjectsCloset = []
     for item in objects_result:
-        object = Object(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7])
+        object = Object(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8])
         listObjectsCloset.append(object)
     json_users = json.dumps(listObjectsCloset, default=lambda obj: obj.__dict__, indent=4)
     return json_users
@@ -223,17 +250,27 @@ def addCommentToObject():
     userId = request.form.get('userid')
     comment = request.form.get('comment')
     if db.addCommentToObject(objectId, userId, comment):
-        return {"res": "Ajout commentaire succèss! "}
-    return {"res": "Quelques erreurs produit! "}
+        return {
+            "error_code": 0,
+            "res_message": "Ajout commentaire succèss! ",
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 @app.route('/object/comments/delete_comment', methods=['POST'])
 def deleteCommentToObject():
-    objectId = request.form.get('objectid')
-    userId = request.form.get('userid')
-    comment = request.form.get('comment')
-    if db.deleteCommentToObject(objectId, userId, comment):
-        return {"res": "Supprimer commentaire succèss! "}
-    return {"res": "Quelques erreurs produit! "}
+    commentId = request.form.get('commentid')
+    if db.deleteCommentToObject(commentId):
+        return {
+            "error_code": 0,
+            "res_message": "Supprimer commentaire succèss! "
+        }
+    return {
+        "error_code": 1,
+        "res_message": "Quelques erreurs produit! "
+    }
 
 
 

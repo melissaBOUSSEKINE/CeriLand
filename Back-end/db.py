@@ -121,8 +121,14 @@ class DB:
             cur.execute("INSERT INTO panier (objectid, userid) VALUES (%s, %s)", panier_data)
             self.conn.commit()
             cur.close()
-            return "Ajouter succèss! "
-        return "L'object exist déjà dans le panier de user" + userId + "! "
+            return {
+                "error_code": 0,
+                "res_message": "Ajouter succèss! "
+            }
+        return {
+            "error_code": 1,
+            "res_message": "L'object exist déjà dans le panier de user" + userId + "! "
+        }
 
     def removeFromPanier(self, objectId, userId):
         checkIsExisted = testDB.checkObjectInPanier(objectId, userId)[0][0]
@@ -131,8 +137,14 @@ class DB:
             cur.execute("DELETE FROM panier WHERE objectid='" + str(objectId) + "' AND userid='" + str(userId) + "'")
             self.conn.commit()
             cur.close()
-            return "Remove from panier succèss! "
-        return "L'object n'exist pas dans le panier de user" + userId + "! "
+            return {
+                "error_code": 0,
+                "res_message": "Remove from panier succèss! "
+            }
+        return {
+            "error_code": 1,
+            "res_message": "L'object n'exist pas dans le panier de user" + userId + "! "
+        }
 
     def deleteAllUsers(self):
         cur = self.conn.cursor()
@@ -173,7 +185,7 @@ class DB:
 
     def getAllObjects(self):
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM objects")
+        cur.execute("SELECT * FROM objects WHERE NOT res_status='0'")
         rows = cur.fetchall()
         cur.close()
         return rows
@@ -291,9 +303,9 @@ class DB:
         cur.close()
         return True
 
-    def deleteCommentToObject(self, objectId, userId, comment):
+    def deleteCommentToObject(self, commentId):
         cur = self.conn.cursor()
-        cur.execute("DELETE FROM comments WHERE objectid='" + str(objectId) + "' AND userid='" + str(userId) + "' AND comment='" + comment + "'")
+        cur.execute("DELETE FROM comments WHERE id='" + commentId + "'")
         self.conn.commit()
         cur.close()
         return True
@@ -315,7 +327,7 @@ class DB:
 
 testDB = DB()
 # testDB.deleteAllObjects()
-testDB.insertObjectInitialize()
+# testDB.insertObjectInitialize()
 # testDB.insertUserInitialize()
 # testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
