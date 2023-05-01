@@ -4,6 +4,7 @@ import com.example.ceribnb.models.Object;
 import com.example.ceribnb.services.VarGlobal;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 
+import java.io.File;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,7 +22,7 @@ public class ObejctCard {
 
     private HBox hBox;
 
-    public ObejctCard(Object object, Image image){
+    public ObejctCard(Object object, Image image, String filePath){
 
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
@@ -43,10 +46,7 @@ public class ObejctCard {
         String dateEndString = sdfEnd.format(dateEnd);
 
         Text title = new Text(object.getTitle());
-        title.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
-
-        Text prix = new Text(object.getPrix());
-        prix.setFill(Color.RED);
+        title.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 
         Text labelDate = new Text("Date disponible: ");
         labelDate.setFill(Color.GRAY);
@@ -62,6 +62,17 @@ public class ObejctCard {
         StackPane stackPaneDateDispo = new StackPane();
         stackPaneDateDispo.getChildren().addAll(background, dateDispo);
 
+        Text labelPrix = new Text("Prix: ");
+        labelPrix.setFill(Color.GRAY);
+
+        Text prix = new Text(object.getPrix() + " €");
+        prix.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
+        prix.setFill(Color.RED);
+
+        HBox hBoxPrix = new HBox();
+        hBoxPrix.getChildren().addAll(labelPrix, prix);
+        hBoxPrix.setMargin(labelPrix, new Insets(0, 0, 0, 70));
+
         TextFlow textFlowTitle = new TextFlow();
         textFlowTitle.setLayoutX(1);
         textFlowTitle.setLayoutY(1);
@@ -69,24 +80,31 @@ public class ObejctCard {
         textFlowTitle.setPrefWidth(250);
         textFlowTitle.getChildren().addAll(title);
 
+        Button addButton = new Button();
+        Image cartImage = new Image(filePath);
+        ImageView cartImageView = new ImageView(cartImage);
+        cartImageView.setFitWidth(20);
+        cartImageView.setFitHeight(20);
+        addButton.setGraphic(cartImageView);
+
         VBox vBoxInfo = new VBox(10);
         VBox.setMargin(textFlowTitle, new Insets(10));
         vBoxInfo.getChildren().add(textFlowTitle);
-        VBox.setMargin(labelDate, new Insets(10));
         vBoxInfo.getChildren().add(labelDate);
-        VBox.setMargin(stackPaneDateDispo, new Insets(5));
         vBoxInfo.getChildren().add(stackPaneDateDispo);
-//        VBox.setMargin(stackPaneDateDispo, new Insets(5));
-//        vBoxInfo.getChildren().add(stackPaneDateDispo);
+        VBox.setMargin(hBoxPrix, new Insets(10));
+        vBoxInfo.getChildren().add(hBoxPrix);
+        VBox.setMargin(addButton, new Insets(0,0,0,150));
+        vBoxInfo.getChildren().add(addButton);
 
-        this.hBox = new HBox(imageView, vBoxInfo);
+        this.hBox = new HBox(10);
+        this.hBox.getChildren().addAll(imageView, vBoxInfo);
         this.hBox.setAlignment(Pos.CENTER_LEFT);
 
         BorderStroke borderStroke = new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, null, new BorderWidths(1));
         Border border = new Border(borderStroke);
 
-        this.hBox.getStyleClass().add("hbox-with-shadow");
         this.hBox.setBorder(border);
         this.hBox.setPadding(new Insets(10));
         this.hBox.setSpacing(10);

@@ -7,6 +7,7 @@ import com.example.ceribnb.services.ApiService;
 import com.example.ceribnb.services.VarGlobal;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -67,7 +68,7 @@ public class AccueilController implements Initializable {
         Border border = new Border(borderStroke);
 
         // 为ScrollPane设置边框
-        scrollPane.setBorder(border);
+        this.scrollPane.setBorder(border);
 
         File folder = new File("..\\..\\images");
         File[] files = folder.listFiles();
@@ -97,13 +98,16 @@ public class AccueilController implements Initializable {
         int row = 0;
         int col = 0;
 
+        File file = new File("src/main/resources/images/bascket.png");
+        String filePath = file.getAbsolutePath();
+
         for (int i = 0; i < 300; i++) {
-            ObejctCard obejctCard = new ObejctCard(VarGlobal.allObjects.get(i), imageHashMap.get(VarGlobal.allObjects.get(i).getImgUrl()));
-            VBox vBox = new VBox(obejctCard.gethBox());
-            vBox.setAlignment(Pos.CENTER);
-            cardGrid.add(obejctCard.gethBox(), col, row);
+            ObejctCard obejctCard = new ObejctCard(VarGlobal.allObjects.get(i), imageHashMap.get(VarGlobal.allObjects.get(i).getImgUrl()), filePath);
+
+            this.cardGrid.add(obejctCard.gethBox(), col, row);
+            this.cardGrid.setPadding(new Insets(10));
             col++;
-            if (col == cardGrid.getColumnCount()){
+            if (col == this.cardGrid.getColumnCount()){
                 col = 0;
                 row++;
             }

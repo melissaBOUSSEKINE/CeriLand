@@ -54,6 +54,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\resources\images" />
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\java\images" />
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\resources\com\example\ceribnb" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="AcceuilApplication" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.example.ceribnb.AccueilApplication" />
