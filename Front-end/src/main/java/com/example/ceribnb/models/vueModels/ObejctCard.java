@@ -4,6 +4,7 @@ import com.example.ceribnb.models.Object;
 import com.example.ceribnb.services.VarGlobal;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -24,6 +25,8 @@ public class ObejctCard {
 
     public ObejctCard(Object object, Image image, String filePath){
 
+        System.out.println("Id: " + object.getId());
+
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
         dropShadow.setOffsetX(3.0);
@@ -39,11 +42,13 @@ public class ObejctCard {
         Date dateStart = new Date(timeStampStart);
         SimpleDateFormat sdfStart = new SimpleDateFormat("yyyy/MM/dd");
         String dateStartString = sdfStart.format(dateStart);
+//        System.out.println("Date dispo start : " + dateStartString);
 
         long timeStampEnd = (long) Double.parseDouble(object.getDateDispoEnd()) * 1000;
         Date dateEnd = new Date(timeStampEnd);
         SimpleDateFormat sdfEnd = new SimpleDateFormat("yyyy/MM/dd");
         String dateEndString = sdfEnd.format(dateEnd);
+//        System.out.println("Date dispo end : " + dateEndString);
 
         Text title = new Text(object.getTitle());
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -71,7 +76,6 @@ public class ObejctCard {
 
         HBox hBoxPrix = new HBox();
         hBoxPrix.getChildren().addAll(labelPrix, prix);
-        hBoxPrix.setMargin(labelPrix, new Insets(0, 0, 0, 70));
 
         TextFlow textFlowTitle = new TextFlow();
         textFlowTitle.setLayoutX(1);
@@ -80,12 +84,16 @@ public class ObejctCard {
         textFlowTitle.setPrefWidth(250);
         textFlowTitle.getChildren().addAll(title);
 
-        Button addButton = new Button();
-        Image cartImage = new Image(filePath);
-        ImageView cartImageView = new ImageView(cartImage);
-        cartImageView.setFitWidth(20);
-        cartImageView.setFitHeight(20);
-        addButton.setGraphic(cartImageView);
+        Button addButton = new Button("Ajout dans le panier");
+
+        addButton.setOnAction(e -> {
+            System.out.println(object.getId());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ajout dans le panier");
+            alert.setHeaderText(null);
+            alert.setContentText("L'object " + object.getId() + " est ajouté dans le panier !");
+            alert.showAndWait();
+        });
 
         VBox vBoxInfo = new VBox(10);
         VBox.setMargin(textFlowTitle, new Insets(10));
@@ -94,8 +102,11 @@ public class ObejctCard {
         vBoxInfo.getChildren().add(stackPaneDateDispo);
         VBox.setMargin(hBoxPrix, new Insets(10));
         vBoxInfo.getChildren().add(hBoxPrix);
-        VBox.setMargin(addButton, new Insets(0,0,0,150));
-        vBoxInfo.getChildren().add(addButton);
+
+        if (VarGlobal.currentUser != null){
+            VBox.setMargin(addButton, new Insets(0,0,0,50));
+            vBoxInfo.getChildren().add(addButton);
+        }
 
         this.hBox = new HBox(10);
         this.hBox.getChildren().addAll(imageView, vBoxInfo);

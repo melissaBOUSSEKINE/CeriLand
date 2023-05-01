@@ -7,21 +7,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="323.0" prefWidth="547.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ceribnb.ConnexionController">
+<AnchorPane prefHeight="323.0" prefWidth="547.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ceribnb.ConnexionController">
    <children>
-      <PasswordField layoutX="233.0" layoutY="150.0" />
-      <Button layoutX="209.0" layoutY="221.0" mnemonicParsing="false" text="Se Connecter" />
-      <TextField layoutX="233.0" layoutY="87.0" />
-      <Text layoutX="122.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identifiant :" wrappingWidth="86.39999999999986">
+      <PasswordField fx:id="mdp" layoutX="247.0" layoutY="149.0" />
+      <Button fx:id="connect" layoutX="209.0" layoutY="221.0" mnemonicParsing="false" onAction="#functionLogin" text="Se Connecter" />
+      <TextField fx:id="username" layoutX="247.0" layoutY="86.0" />
+      <Text layoutX="119.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username:" wrappingWidth="99.20004882812486">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text layoutX="122.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe:" wrappingWidth="110.72381591796875">
+      <Text layoutX="119.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe:" wrappingWidth="110.72381591796875">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Button fx:id="retour" layoutX="474.0" layoutY="283.0" mnemonicParsing="false" onAction="#setRetour" text="Retour" />
    </children>
 </AnchorPane>

@@ -40,6 +40,8 @@ public class AccueilController implements Initializable {
     @FXML
     private Button button_connexion;
 
+    public boolean isButtonVisible;
+
     @FXML
     void choixRole(javafx.event.ActionEvent event) {
 
@@ -101,7 +103,7 @@ public class AccueilController implements Initializable {
         File file = new File("src/main/resources/images/bascket.png");
         String filePath = file.getAbsolutePath();
 
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 1000; i++) {
             ObejctCard obejctCard = new ObejctCard(VarGlobal.allObjects.get(i), imageHashMap.get(VarGlobal.allObjects.get(i).getImgUrl()), filePath);
 
             this.cardGrid.add(obejctCard.gethBox(), col, row);
@@ -114,5 +116,15 @@ public class AccueilController implements Initializable {
         }
     }
 
+    public Button getButton_connexion() {
+        return button_connexion;
+    }
 
+    public void setButton_connexionVisible(){
+        this.button_connexion.setVisible(true);
+    }
+
+    public void setButton_connexionNonVisible(){
+        this.button_connexion.setVisible(false);
+    }
 }
