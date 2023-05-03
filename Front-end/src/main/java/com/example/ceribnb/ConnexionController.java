@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ConnexionController {
@@ -40,16 +41,11 @@ public class ConnexionController {
             VarGlobal.currentUser = ApiService.login(username, password);
             if(VarGlobal.currentUser.getId() != null) {
                 System.out.println(VarGlobal.currentUser);
-
+                VarGlobal.currentUserNameText.setText("Bienvenu , " + VarGlobal.currentUser.getUsername() + " !");
+                VarGlobal.loginBtn.setVisible(false);
+                VarGlobal.logoutBtn.setVisible(true);
                 Stage stage = (Stage)connect.getScene().getWindow();
                 stage.close();
-                AccueilController accueilController = new AccueilController();
-                accueilController.setButton_connexionNonVisible();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText("Bienvenu " + VarGlobal.currentUser.getUsername() + "! ");
-                alert.showAndWait();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(null);

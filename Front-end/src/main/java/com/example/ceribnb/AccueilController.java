@@ -5,6 +5,8 @@ import com.example.ceribnb.models.Object;
 import com.example.ceribnb.models.vueModels.ObejctCard;
 import com.example.ceribnb.services.ApiService;
 import com.example.ceribnb.services.VarGlobal;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -34,16 +36,17 @@ import javafx.stage.Stage;
 public class AccueilController implements Initializable {
 
     @FXML
+    private AnchorPane acceuil;
+    @FXML
     private ScrollPane scrollPane;
     @FXML
     private GridPane cardGrid;
-    @FXML
-    private Button button_connexion;
+//    @FXML
+//    private Button button_connexion;
 
     public boolean isButtonVisible;
 
-    @FXML
-    void choixRole(javafx.event.ActionEvent event) {
+    void login() {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("connexion.fxml"));
@@ -59,7 +62,42 @@ public class AccueilController implements Initializable {
         }
     }
 
+    void logout() {
+        VarGlobal.currentUser = null;
+        VarGlobal.logoutBtn.setVisible(false);
+        VarGlobal.currentUserNameText.setVisible(false);
+        VarGlobal.loginBtn.setVisible(true);
+    }
+
     public void initialize(URL url, ResourceBundle rb) {
+
+        this.acceuil.getChildren().add(VarGlobal.loginBtn);
+        AnchorPane.setRightAnchor(VarGlobal.loginBtn, 60.0);
+        AnchorPane.setTopAnchor(VarGlobal.loginBtn, 20.0);
+
+        this.acceuil.getChildren().add(VarGlobal.logoutBtn);
+        AnchorPane.setRightAnchor(VarGlobal.logoutBtn, 60.0);
+        AnchorPane.setTopAnchor(VarGlobal.logoutBtn, 20.0);
+
+        VarGlobal.logoutBtn.setVisible(false);
+
+        this.acceuil.getChildren().add(VarGlobal.currentUserNameText);
+        AnchorPane.setRightAnchor(VarGlobal.currentUserNameText, 175.0);
+        AnchorPane.setTopAnchor(VarGlobal.currentUserNameText, 25.0);
+
+        VarGlobal.loginBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                login();
+            }
+        });
+
+        VarGlobal.logoutBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                logout();
+            }
+        });
 
         ApiService.getAllObjects();
 
@@ -116,15 +154,4 @@ public class AccueilController implements Initializable {
         }
     }
 
-    public Button getButton_connexion() {
-        return button_connexion;
-    }
-
-    public void setButton_connexionVisible(){
-        this.button_connexion.setVisible(true);
-    }
-
-    public void setButton_connexionNonVisible(){
-        this.button_connexion.setVisible(false);
-    }
 }

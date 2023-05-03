@@ -87,12 +87,19 @@ public class ObejctCard {
         Button addButton = new Button("Ajout dans le panier");
 
         addButton.setOnAction(e -> {
-            System.out.println(object.getId());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Ajout dans le panier");
-            alert.setHeaderText(null);
-            alert.setContentText("L'object " + object.getId() + " est ajouté dans le panier !");
-            alert.showAndWait();
+            if(VarGlobal.currentUser == null){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez connectez-vous avant d'ajouter l'objet dans le panier! ");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ajout dans le panier");
+                alert.setHeaderText(null);
+                alert.setContentText("L'object " + object.getId() + " est ajouté dans le panier !");
+                alert.showAndWait();
+            }
         });
 
         VBox vBoxInfo = new VBox(10);
@@ -103,10 +110,8 @@ public class ObejctCard {
         VBox.setMargin(hBoxPrix, new Insets(10));
         vBoxInfo.getChildren().add(hBoxPrix);
 
-        if (VarGlobal.currentUser != null){
-            VBox.setMargin(addButton, new Insets(0,0,0,50));
-            vBoxInfo.getChildren().add(addButton);
-        }
+        VBox.setMargin(addButton, new Insets(0,0,0,50));
+        vBoxInfo.getChildren().add(addButton);
 
         this.hBox = new HBox(10);
         this.hBox.getChildren().addAll(imageView, vBoxInfo);
