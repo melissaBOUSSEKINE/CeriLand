@@ -9,6 +9,8 @@ public class VarGlobal {
 
     public static ArrayList<Object> allObjects;
 
-    public static ArrayList<User> allUser;
+//    public static ArrayList<User> allUser;
+
+    public static User currentUser;
 
 }

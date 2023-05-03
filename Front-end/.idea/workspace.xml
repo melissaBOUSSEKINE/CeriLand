@@ -13,12 +13,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -40,6 +41,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator.DESKTOP-S59OT49/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -52,6 +54,14 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\java\com\example\ceribnb\models\vueModels" />
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\resources\images" />
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\java\images" />
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\resources\com\example\ceribnb" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="AcceuilApplication" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.example.ceribnb.AccueilApplication" />
@@ -83,6 +93,7 @@
       <workItem from="1680527380989" duration="1396000" />
       <workItem from="1680532747931" duration="2003000" />
       <workItem from="1680850054933" duration="157000" />
+      <workItem from="1682974683081" duration="11046000" />
     </task>
     <task id="LOCAL-00001" summary="Remove setting unused">
       <created>1680533909482</created>
@@ -96,6 +107,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Remove setting unused" />
