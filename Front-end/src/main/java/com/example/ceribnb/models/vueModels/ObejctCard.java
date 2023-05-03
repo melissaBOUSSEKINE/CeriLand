@@ -25,7 +25,7 @@ public class ObejctCard {
 
     private HBox hBox;
 
-    public ObejctCard(Object object, Image image, String filePath){
+    public ObejctCard(Object object, Image image){
 
         System.out.println("Id: " + object.getId());
 

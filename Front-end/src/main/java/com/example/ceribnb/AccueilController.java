@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.*;
 
 import java.io.*;
 import java.net.URL;
@@ -37,12 +38,21 @@ public class AccueilController implements Initializable {
 
     @FXML
     private AnchorPane acceuil;
+
     @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private GridPane cardGrid;
-//    @FXML
-//    private Button button_connexion;
+
+    @FXML
+    private Button searchBtn;
+
+    @FXML
+    private TextField searchTextFiled;
+
+    @FXML
+    private Text msgResult;
 
     public boolean isButtonVisible;
 
@@ -110,10 +120,13 @@ public class AccueilController implements Initializable {
         // 为ScrollPane设置边框
         this.scrollPane.setBorder(border);
 
+        this.buildObjectCards(1000, VarGlobal.allObjects);
+
+    }
+
+    void buildObjectCards(int nombreObjects, ArrayList<Object> objects){
         File folder = new File("..\\..\\images");
         File[] files = folder.listFiles();
-        System.out.println("Nombre images: " + files.length);
-        System.out.println("Nombre objects: " + VarGlobal.allObjects.size());
 
         HashMap<String, Image> imageHashMap = new HashMap<>();
 
@@ -138,11 +151,8 @@ public class AccueilController implements Initializable {
         int row = 0;
         int col = 0;
 
-        File file = new File("src/main/resources/images/bascket.png");
-        String filePath = file.getAbsolutePath();
-
-        for (int i = 0; i < 1000; i++) {
-            ObejctCard obejctCard = new ObejctCard(VarGlobal.allObjects.get(i), imageHashMap.get(VarGlobal.allObjects.get(i).getImgUrl()), filePath);
+        for (int i = 0; i < nombreObjects; i++) {
+            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()));
 
             this.cardGrid.add(obejctCard.gethBox(), col, row);
             this.cardGrid.setPadding(new Insets(10));
@@ -151,6 +161,21 @@ public class AccueilController implements Initializable {
                 col = 0;
                 row++;
             }
+        }
+    }
+
+    @FXML
+    void searchFunction(ActionEvent event) {
+        System.out.println(this.searchTextFiled.getText());
+        String searchKey = this.searchTextFiled.getText();
+        if(searchKey.equals("")){
+            this.cardGrid.getChildren().clear();
+            this.buildObjectCards(1000, VarGlobal.allObjects);
+        } else {
+            ArrayList<Object> results = ApiService.getObjectsByTitle(searchKey);
+            this.msgResult.setText("Has " + results.size() + " results");
+            this.cardGrid.getChildren().clear();
+            this.buildObjectCards(results.size(), results);
         }
     }
 
