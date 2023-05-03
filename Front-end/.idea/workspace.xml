@@ -93,7 +93,7 @@
       <workItem from="1680527380989" duration="1396000" />
       <workItem from="1680532747931" duration="2003000" />
       <workItem from="1680850054933" duration="157000" />
-      <workItem from="1682974683081" duration="8923000" />
+      <workItem from="1682974683081" duration="11046000" />
     </task>
     <task id="LOCAL-00001" summary="Remove setting unused">
       <created>1680533909482</created>
@@ -107,6 +107,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Remove setting unused" />
