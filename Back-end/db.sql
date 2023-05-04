@@ -15,7 +15,7 @@ CREATE TABLE objects (
     date_dispo_end VARCHAR(100),
     prix VARCHAR(20) NOT NULL,
     res_status VARCHAR(10) NOT NULL,
-    res_by INTEGER REFERENCES users(id)
+    res_by INTEGER REFERENCES users(id) DEFAULT NULL
 );
 
 CREATE TABLE command (

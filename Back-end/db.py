@@ -83,8 +83,8 @@ class DB:
         object.setPrix()
         object.setImgUrl()
         object.setResStatus()
-        object_data = (ownerid, object.img_url, object.title, object.date_dispo_start, object.date_dispo_end, object.prix, object.res_status)
-        cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo_start, date_dispo_end, prix, res_status) VALUES (%s, %s, %s, %s, %s, %s, %s)", object_data)
+        object_data = (ownerid, object.img_url, object.title, object.date_dispo_start, object.date_dispo_end, object.prix, object.res_status, object.res_status)
+        cur.execute("INSERT INTO objects (ownerid, img_url, title, date_dispo_start, date_dispo_end, prix, res_status, res_by) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", object_data)
         self.conn.commit()
         cur.close()
         return True
@@ -327,7 +327,7 @@ class DB:
 
 testDB = DB()
 # testDB.deleteAllObjects()
-# testDB.insertObjectInitialize()
+testDB.insertObjectInitialize()
 # testDB.insertUserInitialize()
 # testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
