@@ -5,6 +5,8 @@ import com.example.ceribnb.models.Object;
 import com.example.ceribnb.models.vueModels.ObejctCard;
 import com.example.ceribnb.services.ApiService;
 import com.example.ceribnb.services.VarGlobal;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -17,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.*;
 
 import java.io.*;
 import java.net.URL;
@@ -34,16 +37,26 @@ import javafx.stage.Stage;
 public class AccueilController implements Initializable {
 
     @FXML
+    private AnchorPane acceuil;
+
+    @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private GridPane cardGrid;
+
     @FXML
-    private Button button_connexion;
+    private Button searchBtn;
+
+    @FXML
+    private TextField searchTextFiled;
+
+    @FXML
+    private Text msgResult;
 
     public boolean isButtonVisible;
 
-    @FXML
-    void choixRole(javafx.event.ActionEvent event) {
+    void login() {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("connexion.fxml"));
@@ -59,7 +72,42 @@ public class AccueilController implements Initializable {
         }
     }
 
+    void logout() {
+        VarGlobal.currentUser = null;
+        VarGlobal.logoutBtn.setVisible(false);
+        VarGlobal.currentUserNameText.setVisible(false);
+        VarGlobal.loginBtn.setVisible(true);
+    }
+
     public void initialize(URL url, ResourceBundle rb) {
+
+        this.acceuil.getChildren().add(VarGlobal.loginBtn);
+        AnchorPane.setRightAnchor(VarGlobal.loginBtn, 60.0);
+        AnchorPane.setTopAnchor(VarGlobal.loginBtn, 20.0);
+
+        this.acceuil.getChildren().add(VarGlobal.logoutBtn);
+        AnchorPane.setRightAnchor(VarGlobal.logoutBtn, 60.0);
+        AnchorPane.setTopAnchor(VarGlobal.logoutBtn, 20.0);
+
+        VarGlobal.logoutBtn.setVisible(false);
+
+        this.acceuil.getChildren().add(VarGlobal.currentUserNameText);
+        AnchorPane.setRightAnchor(VarGlobal.currentUserNameText, 175.0);
+        AnchorPane.setTopAnchor(VarGlobal.currentUserNameText, 25.0);
+
+        VarGlobal.loginBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                login();
+            }
+        });
+
+        VarGlobal.logoutBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                logout();
+            }
+        });
 
         ApiService.getAllObjects();
 
@@ -72,10 +120,13 @@ public class AccueilController implements Initializable {
         // 为ScrollPane设置边框
         this.scrollPane.setBorder(border);
 
+        this.buildObjectCards(1000, VarGlobal.allObjects);
+
+    }
+
+    void buildObjectCards(int nombreObjects, ArrayList<Object> objects){
         File folder = new File("..\\..\\images");
         File[] files = folder.listFiles();
-        System.out.println("Nombre images: " + files.length);
-        System.out.println("Nombre objects: " + VarGlobal.allObjects.size());
 
         HashMap<String, Image> imageHashMap = new HashMap<>();
 
@@ -100,11 +151,8 @@ public class AccueilController implements Initializable {
         int row = 0;
         int col = 0;
 
-        File file = new File("src/main/resources/images/bascket.png");
-        String filePath = file.getAbsolutePath();
-
-        for (int i = 0; i < 1000; i++) {
-            ObejctCard obejctCard = new ObejctCard(VarGlobal.allObjects.get(i), imageHashMap.get(VarGlobal.allObjects.get(i).getImgUrl()), filePath);
+        for (int i = 0; i < nombreObjects; i++) {
+            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()));
 
             this.cardGrid.add(obejctCard.gethBox(), col, row);
             this.cardGrid.setPadding(new Insets(10));
@@ -116,15 +164,19 @@ public class AccueilController implements Initializable {
         }
     }
 
-    public Button getButton_connexion() {
-        return button_connexion;
+    @FXML
+    void searchFunction(ActionEvent event) {
+        System.out.println(this.searchTextFiled.getText());
+        String searchKey = this.searchTextFiled.getText();
+        if(searchKey.equals("")){
+            this.cardGrid.getChildren().clear();
+            this.buildObjectCards(1000, VarGlobal.allObjects);
+        } else {
+            ArrayList<Object> results = ApiService.getObjectsByTitle(searchKey);
+            this.msgResult.setText("Has " + results.size() + " results");
+            this.cardGrid.getChildren().clear();
+            this.buildObjectCards(results.size(), results);
+        }
     }
 
-    public void setButton_connexionVisible(){
-        this.button_connexion.setVisible(true);
-    }
-
-    public void setButton_connexionNonVisible(){
-        this.button_connexion.setVisible(false);
-    }
 }

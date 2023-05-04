@@ -1,6 +1,8 @@
 package com.example.ceribnb.models.vueModels;
 
 import com.example.ceribnb.models.Object;
+import com.example.ceribnb.models.Response;
+import com.example.ceribnb.services.ApiService;
 import com.example.ceribnb.services.VarGlobal;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,7 +25,7 @@ public class ObejctCard {
 
     private HBox hBox;
 
-    public ObejctCard(Object object, Image image, String filePath){
+    public ObejctCard(Object object, Image image){
 
         System.out.println("Id: " + object.getId());
 
@@ -87,12 +89,7 @@ public class ObejctCard {
         Button addButton = new Button("Ajout dans le panier");
 
         addButton.setOnAction(e -> {
-            System.out.println(object.getId());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Ajout dans le panier");
-            alert.setHeaderText(null);
-            alert.setContentText("L'object " + object.getId() + " est ajouté dans le panier !");
-            alert.showAndWait();
+            onClickAddButton(object);
         });
 
         VBox vBoxInfo = new VBox(10);
@@ -103,10 +100,8 @@ public class ObejctCard {
         VBox.setMargin(hBoxPrix, new Insets(10));
         vBoxInfo.getChildren().add(hBoxPrix);
 
-        if (VarGlobal.currentUser != null){
-            VBox.setMargin(addButton, new Insets(0,0,0,50));
-            vBoxInfo.getChildren().add(addButton);
-        }
+        VBox.setMargin(addButton, new Insets(0,0,0,50));
+        vBoxInfo.getChildren().add(addButton);
 
         this.hBox = new HBox(10);
         this.hBox.getChildren().addAll(imageView, vBoxInfo);
@@ -120,6 +115,25 @@ public class ObejctCard {
         this.hBox.setPadding(new Insets(10));
         this.hBox.setSpacing(10);
 
+    }
+
+    void onClickAddButton(Object object) {
+        if(VarGlobal.currentUser == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez connectez-vous avant d'ajouter l'objet dans le panier! ");
+            alert.showAndWait();
+        } else {
+            System.out.println(object.getId());
+            System.out.println(VarGlobal.currentUser.getId());
+            Response res = ApiService.addObjectIntoPanier(Integer.parseInt(object.getId()), Integer.parseInt(VarGlobal.currentUser.getId()));
+            Alert alert = new Alert(res.getErrorCode().equals("0") ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(res.getErrorMsg());
+            alert.showAndWait();
+        }
     }
 
     public HBox gethBox() {
