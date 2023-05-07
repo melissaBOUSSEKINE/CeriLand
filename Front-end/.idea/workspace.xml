@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc94d8e6-1476-4f06-abc8-bde859b9a216" name="Changes" comment="Remove setting unused">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommandEnvoyeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/PanierController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ProfilController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/CommandEnvoye.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/comment.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/panier.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/profil.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Back-end/ceriLandApi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Back-end/ceriLandApi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Back-end/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Back-end/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023_4_27_11_29__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023_4_27_11_29__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/AccueilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/AccueilController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/Panier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/Panier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/ApiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/VarGlobal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/VarGlobal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/accueil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/accueil.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/comment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/comment.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +112,10 @@
       <workItem from="1683335599902" duration="1174000" />
       <workItem from="1683341850669" duration="90000" />
       <workItem from="1683344376693" duration="2000" />
-      <workItem from="1683371072409" duration="42966000" />
+      <workItem from="1683371072409" duration="43266000" />
+      <workItem from="1683449625390" duration="272000" />
+      <workItem from="1683450016185" duration="2807000" />
+      <workItem from="1683452908394" duration="5102000" />
     </task>
     <task id="LOCAL-00001" summary="Remove setting unused">
       <created>1680533909482</created>

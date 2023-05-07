@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,9 +51,10 @@ public class ObejctCard {
 
 
             imageView.setOnMouseClicked(event -> {
-                CommentController commentController = new CommentController();
+                //CommentController commentController = new CommentController();
                 VarGlobal.objetId =  object.getId();
-                commentController.refreshCommentList();
+                System.out.println("izannnn  " + VarGlobal.objetId);
+               // commentController.refreshCommentList();
 
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ceribnb/comment.fxml"));
@@ -71,6 +73,9 @@ public class ObejctCard {
                 }
 
             });
+
+        Tooltip tooltip = new Tooltip("Click here to add and see all the comments");
+        Tooltip.install(imageView, tooltip);
 
         long timeStampStart = (long) Double.parseDouble(object.getDateDispoStart()) * 1000;
         Date dateStart = new Date(timeStampStart);
