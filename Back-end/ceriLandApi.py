@@ -100,6 +100,13 @@ def removeObjectInPanier():
     res = db.removeFromPanier(objectId, userId)
     return res
 
+@app.route('/user/panier/remove_all_objects', methods=['POST'])
+def removeAllObjectsFromPanier():
+    userId = request.form.get('userid')
+    print("hyy"+userId);
+    res = db.removeAllObjectsFromPanier(userId)
+    print(res);
+    return res
 # 
 # Gestion les commands
 # 

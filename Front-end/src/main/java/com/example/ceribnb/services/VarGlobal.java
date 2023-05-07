@@ -17,8 +17,17 @@ public class VarGlobal {
 
     public static Button loginBtn = new Button("Connexion");
 
-    public static Button logoutBtn = new Button("Déonnexion");
+    public static Button logoutBtn = new Button("Déconnexion");
 
     public static Text currentUserNameText = new Text("");
+
+    public static Button profil = new Button("Profile");
+    public static Button addButton = new Button("Ajouter au panier");
+
+    public static Button deleteButton = new Button("Supprimer");
+
+    public static String objetId;
+
+
 
 }

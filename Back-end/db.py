@@ -145,6 +145,23 @@ class DB:
             "error_code": 1,
             "res_message": "L'object n'exist pas dans le panier de user" + userId + "! "
         }
+        
+    def removeAllObjectsFromPanier(self, userId):
+        checkIsExisted = testDB.checkObjectInPanier( userId)[0][0]
+        if checkIsExisted == 1:
+            cur = self.conn.cursor()
+            cur.execute("DELETE FROM panier WHERE userid='" + str(userId) + "'")
+            self.conn.commit()
+            cur.close()
+            return {
+                "error_code": 0,
+                "res_message": "Remove from panier succèss! "
+            }
+        return {
+            "error_code": 1,
+            "res_message": "L'object n'exist pas dans le panier de user" + userId + "! "
+        }
+        
 
     def deleteAllUsers(self):
         cur = self.conn.cursor()
@@ -327,7 +344,7 @@ class DB:
 
 testDB = DB()
 # testDB.deleteAllObjects()
-testDB.insertObjectInitialize()
+# testDB.insertObjectInitialize()
 # testDB.insertUserInitialize()
 # testDB.insertCommandInitialize()
 # testDB.insertPanierInitialize()
