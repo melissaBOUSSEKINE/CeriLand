@@ -197,7 +197,7 @@ public class AccueilController implements Initializable {
         int col = 0;
 
         for (int i = 0; i < nombreObjects; i++) {
-            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()), true,false, cardGrid);
+            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()), true,false,false, cardGrid);
 
             this.cardGrid.add(obejctCard.gethBox(), col, row);
             this.cardGrid.setPadding(new Insets(10));

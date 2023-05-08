@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ceribnb.ProfilController">
+<AnchorPane fx:id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ceribnb.ProfilController">
    <children>
       <Button layoutX="61.0" layoutY="273.0" mnemonicParsing="false" prefHeight="38.0" onAction="#setPanier" prefWidth="135.0" text="Panier" />
       <Button layoutX="232.0" layoutY="273.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="135.0" onAction="#commandSent" text="Commandes envoyées" />

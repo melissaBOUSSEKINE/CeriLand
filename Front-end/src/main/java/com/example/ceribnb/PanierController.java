@@ -44,7 +44,7 @@ public class PanierController implements Initializable {
     private Text msgResult;
 
     Response response;
-    void buildObjectCards(int nombreObjects, ArrayList<Object> objects, boolean showAddButton, boolean showdeleteButton){
+    void buildObjectCards(int nombreObjects, ArrayList<Object> objects, boolean showAddButton, boolean showdeleteButton, boolean showValRefButton){
         File folder = new File("..\\..\\images");
         File[] files = folder.listFiles();
         HashMap<String, Image> imageHashMap = new HashMap<>();
@@ -71,7 +71,7 @@ public class PanierController implements Initializable {
         int col = 0;
 
         for (int i = 0; i < nombreObjects; i++) {
-            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()), false, true, cardGrid);
+            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()), false, true,false,  cardGrid);
             VarGlobal.addButton.setVisible(false);
             this.cardGrid.add(obejctCard.gethBox(), col, row);
             this.cardGrid.setPadding(new Insets(10));
@@ -94,7 +94,7 @@ public class PanierController implements Initializable {
         }
         this.msgResult.setText("Has " + results.size() + " results");
         this.cardGrid.getChildren().clear();
-        this.buildObjectCards(results.size(), objects, false, true);
+        this.buildObjectCards(results.size(), objects, false, true, false);
 
     }
 

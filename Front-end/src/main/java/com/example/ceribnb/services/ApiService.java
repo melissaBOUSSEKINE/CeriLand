@@ -97,6 +97,7 @@ public class ApiService {
         return objects;
     }
 
+    //la liste d'objets !
     public static Object getObjectById(String objectId){
         Object object = new Object();
         try {
@@ -111,10 +112,25 @@ public class ApiService {
         return object;
     }
 
+    public static ArrayList<Object> getAllObjectById(String ownerId){
+        ArrayList<Object> objects = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/objects/" + ownerId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            objects = objectMapper.readValue(reader, new TypeReference<ArrayList<Object>>(){});;
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return objects;
+    }
+
     /**
      * Gestion les commandes
      */
-    public static ArrayList<Command> getCommandsReceivedByUserId(int ownerId) {
+    // les demandes!
+    public static ArrayList<Command> getCommandsReceivedByUserId(String ownerId) {
         ArrayList<Command> commands = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + "/user/commands_received/" + ownerId);
@@ -180,6 +196,19 @@ public class ApiService {
             System.err.println("Error: " + e.getMessage());
         }
         return res;
+    }
+    public static ArrayList<Command> getCommanderByObjectId(String objectId){
+        ArrayList<Command> commands = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/commands/object/" + objectId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            commands = objectMapper.readValue(reader, new TypeReference<ArrayList<Command>>(){});;
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return commands;
     }
 
     public static Response valideCommand(String ownerId, String objectId, String commanderId){

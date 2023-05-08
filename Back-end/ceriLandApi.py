@@ -193,8 +193,16 @@ def refuseCommand():
         "error_code": 1,
         "res_message": "Quelques erreurs produit! "
     }
-
-
+    
+@app.route('/commands/object/<int:objectId>')
+def getCommanderbyObjectId(objectId):
+    result = db.getCommanderbyObjectId(objectId)
+    commands = []
+    for row in result:
+        command = Command(result[0][0], result[0][1], result[0][2], result[0][3])
+        commands.append(command)
+    json_commands = json.dumps(commands, default=lambda obj: obj.__dict__, indent=4)
+    return json_commands
 # 
 # Gestion les users
 # 
@@ -226,6 +234,16 @@ def getObjectByObjectId(objectId):
     object = Object(object_result[0][0], object_result[0][1], object_result[0][2], object_result[0][3], object_result[0][4], object_result[0][5], object_result[0][6], object_result[0][7], object_result[0][8])
     json_object = json.dumps(object, default=lambda obj: obj.__dict__, indent=4)
     return json_object
+
+@app.route('/objects/<int:ownerId>')
+def getAllObjectById(ownerId):
+    objects_result = db.getAllObjectById(ownerId)
+    listObjects = []
+    for object in objects_result:
+        objectObj = Object(object[0], object[1], object[2], object[3], object[4], object[5], object[6], object[7], object[8])
+        listObjects.append(objectObj)
+    json_objects = json.dumps(listObjects, default=lambda obj: obj.__dict__, indent=4)
+    return json_objects
 
 @app.route('/objects/<string:title>')
 def getObjectsByTitle(title):

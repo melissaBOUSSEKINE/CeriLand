@@ -1,6 +1,7 @@
 package com.example.ceribnb.models.vueModels;
 
 import com.example.ceribnb.CommentController;
+import com.example.ceribnb.models.Command;
 import com.example.ceribnb.models.Object;
 import com.example.ceribnb.models.Response;
 import com.example.ceribnb.services.ApiService;
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ObejctCard {
@@ -32,7 +34,7 @@ public class ObejctCard {
     private HBox hBox;
     private GridPane cardGrid;
 
-    public ObejctCard(Object object, Image image, boolean showAddButton, boolean showDeleteButton, GridPane cardGrid){
+    public ObejctCard(Object object, Image image, boolean showAddButton, boolean showDeleteButton,boolean showValRefButton, GridPane cardGrid){
 
         //showAddButton = true;
         this.cardGrid = cardGrid;
@@ -133,6 +135,12 @@ public class ObejctCard {
         Button deleteButton = new Button(VarGlobal.deleteButton.getText());
         deleteButton.setOnAction(VarGlobal.deleteButton.getOnAction());
 
+        Button validBtn = new Button(VarGlobal.valider.getText());
+        deleteButton.setOnAction(VarGlobal.valider.getOnAction());
+
+        Button refusBtn = new Button(VarGlobal.refuser.getText());
+        deleteButton.setOnAction(VarGlobal.refuser.getOnAction());
+
         if (showAddButton) {
             addButton.setVisible(true);
             deleteButton.setVisible(false);
@@ -144,7 +152,28 @@ public class ObejctCard {
             deleteButton.setVisible(false);
         }
 
+        System.out.println("show is "+showValRefButton);
+        if(showValRefButton){
+            validBtn.setVisible(true);
+            refusBtn.setVisible(true);
+
+        }else{
+            validBtn.setVisible(false);
+            refusBtn.setVisible(false);
+        }
+
+
        // deleteButton.setVisible(false);
+
+        validBtn.setOnAction(e -> {
+            validDemande(object);
+            System.out.println("valider");
+        });
+
+        refusBtn.setOnAction(e -> {
+           // refusDemande(object);
+            System.out.println("refuser");
+        });
 
 
         addButton.setOnAction(e -> {
@@ -170,6 +199,12 @@ public class ObejctCard {
 
         VBox.setMargin(deleteButton, new Insets(-20,10,10,50));
         vBoxInfo.getChildren().add(deleteButton);
+
+        VBox.setMargin(validBtn, new Insets(-20,10,10,50));
+        vBoxInfo.getChildren().add(validBtn);
+
+        VBox.setMargin(refusBtn, new Insets(10,10,10,50));
+        vBoxInfo.getChildren().add(refusBtn);
 
         this.hBox = new HBox(10);
         this.hBox.getChildren().addAll(imageView, vBoxInfo);
@@ -222,6 +257,24 @@ public class ObejctCard {
 
     public HBox gethBox() {
         return hBox;
+    }
+
+    public void validDemande(Object object) {
+        ArrayList<Command> commands = ApiService.getCommanderByObjectId(object.getId());
+        Response response = null;
+        for (Command cmd : commands) {
+            System.out.println(cmd.getCommanderId());
+            response = ApiService.valideCommand(VarGlobal.currentUser.getId(), object.getId(), cmd.getCommanderId());
+            System.out.println(response.getErrorMsg());
+        }
+
+        Alert alert = new Alert(response.getErrorCode().equals("0") ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+        alert.setTitle(null);
+        alert.setHeaderText(null);
+        alert.setContentText(response.getErrorMsg());
+        alert.showAndWait();
+
+
     }
 
 

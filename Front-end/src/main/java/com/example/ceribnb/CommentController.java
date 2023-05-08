@@ -53,7 +53,9 @@ public class CommentController implements Initializable {
             response = ApiService.addCommentToObject(VarGlobal.objetId  , VarGlobal.currentUser.getId() , newComment );
             commentText.clear();
             // Add the new comment to the ListView and refresh it
-            commentList.getItems().add(newComment);
+            String commentWithUsername = VarGlobal.currentUser.getUsername() + " a commenté : "+ newComment;
+            commentList.getItems().add(commentWithUsername);
+            //commentList.getItems().add(newComment);
             commentList.refresh();
         }
 

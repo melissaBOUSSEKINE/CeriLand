@@ -147,8 +147,6 @@ class DB:
         }
         
     def removeAllObjectsFromPanier(self, userId):
-        checkIsExisted = testDB.checkObjectInPanier( userId)[0][0]
-        if checkIsExisted == 1:
             cur = self.conn.cursor()
             cur.execute("DELETE FROM panier WHERE userid='" + str(userId) + "'")
             self.conn.commit()
@@ -157,10 +155,7 @@ class DB:
                 "error_code": 0,
                 "res_message": "Remove from panier succèss! "
             }
-        return {
-            "error_code": 1,
-            "res_message": "L'object n'exist pas dans le panier de user" + userId + "! "
-        }
+       
         
 
     def deleteAllUsers(self):
@@ -264,6 +259,13 @@ class DB:
         self.conn.commit()
         cur.close()
         return True
+    
+    def getCommanderbyObjectId(self, objectId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT c.* FROM command c INNER JOIN objects o ON c.objectId=o.id WHERE o.id='"+ str(objectId)+ "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
 
     def updateObjectResStatus(self, ownerid, objectId, commanderId):
         print(ownerid)
@@ -280,6 +282,13 @@ class DB:
     def getObjectByObjectId(self, objectId):
         cur = self.conn.cursor()
         cur.execute("SELECT * FROM objects WHERE id='" + str(objectId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+    
+    def getAllObjectById(self, ownerId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM objects WHERE ownerid='" + str(ownerId) + "'")
         rows = cur.fetchall()
         cur.close()
         return rows
