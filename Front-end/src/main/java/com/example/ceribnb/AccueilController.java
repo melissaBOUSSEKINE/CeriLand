@@ -4,11 +4,13 @@ import com.example.ceribnb.models.Object;
 import com.example.ceribnb.models.vueModels.ObejctCard;
 import com.example.ceribnb.services.ApiService;
 import com.example.ceribnb.services.VarGlobal;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -198,6 +200,10 @@ public class AccueilController implements Initializable {
 //        final int[] row = {0};
 //        final int[] col = {0};
 
+        Set<Node> addedNodes = Collections.synchronizedSet(new HashSet<>()); // 存储已添加的节点
+
+//        List<Node> cardNodes = new ArrayList<>();
+
         AtomicInteger row = new AtomicInteger();
         AtomicInteger col = new AtomicInteger();
 
@@ -215,14 +221,16 @@ public class AccueilController implements Initializable {
                     Object object = objects.get(i);
                     ObejctCard obejctCard = new ObejctCard(object, imageHashMap.get(object.getImgUrl()), true, false, false, cardGrid);
 
-                    synchronized (cardGrid) {
-                        cardGrid.add(obejctCard.gethBox(), col.get(), row.get());
-                        cardGrid.setPadding(new Insets(10));
-                        col.getAndIncrement();
-                        if (col.get() == cardGrid.getColumnCount()) {
-                            col.set(0);
-                            row.getAndIncrement();
-                        }
+                    if (addedNodes.add(obejctCard.gethBox())) {
+                        Platform.runLater(() -> {
+                            cardGrid.add(obejctCard.gethBox(), col.get(), row.get());
+                            cardGrid.setPadding(new Insets(10));
+                            col.getAndIncrement();
+                            if (col.get() == cardGrid.getColumnCount()) {
+                                col.set(0);
+                                row.getAndIncrement();
+                            }
+                        });
                     }
                 }
             });
@@ -234,42 +242,6 @@ public class AccueilController implements Initializable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-//        List<Thread> threads = new ArrayList<>();
-//
-//        for (int t = 0; t < numThreads; t++) {
-//            int startIndex = t * objectsPerThread;
-//            int endIndex = Math.min(startIndex + objectsPerThread, nombreObjects);
-//
-//            Thread thread = new Thread(() -> {
-//                for (int i = startIndex; i < endIndex; i++) {
-//                    Object object = objects.get(i);
-//                    ObejctCard obejctCard = new ObejctCard(object, imageHashMap.get(object.getImgUrl()), true, false, false, cardGrid);
-//
-//                    synchronized (cardGrid) {
-//                        cardGrid.add(obejctCard.gethBox(), col[0], row[0]);
-//                        cardGrid.setPadding(new Insets(10));
-//                        col[0]++;
-//                        if (col[0] == cardGrid.getColumnCount()) {
-//                            col[0] = 0;
-//                            row[0]++;
-//                        }
-//                    }
-//                }
-//            });
-//
-//            threads.add(thread);
-//            thread.start();
-//        }
-//
-//        // 等待所有线程执行完成
-//        for (Thread thread : threads) {
-//            try {
-//                thread.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
