@@ -1,23 +1,22 @@
 package com.example.ceribnb;
 
-import com.example.ceribnb.models.*;
 import com.example.ceribnb.models.Object;
 import com.example.ceribnb.models.vueModels.ObejctCard;
 import com.example.ceribnb.services.ApiService;
 import com.example.ceribnb.services.VarGlobal;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
@@ -25,11 +24,12 @@ import java.io.*;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javafx.fxml.Initializable;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -167,7 +167,7 @@ public class AccueilController implements Initializable {
         this.scrollPane.setBorder(border);
 
         // Call a method to build object cards and display them in the scroll pane
-        this.buildObjectCards(1000, VarGlobal.allObjects);
+        this.buildObjectCards(VarGlobal.allObjects.size(), VarGlobal.allObjects);
 
 
         // Add a listener to the search text field to trigger a new search when the text changes
@@ -211,20 +211,57 @@ public class AccueilController implements Initializable {
             }
         }
 
-        int row = 0;
-        int col = 0;
+        long startTime = System.currentTimeMillis();
 
-        for (int i = 0; i < nombreObjects; i++) {
-            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()), true,false,false, cardGrid);
+//        final int[] row = {0};
+//        final int[] col = {0};
 
-            this.cardGrid.add(obejctCard.gethBox(), col, row);
-            this.cardGrid.setPadding(new Insets(10));
-            col++;
-            if (col == this.cardGrid.getColumnCount()){
-                col = 0;
-                row++;
-            }
+        Set<Node> addedNodes = Collections.synchronizedSet(new HashSet<>()); // 存储已添加的节点
+
+//        List<Node> cardNodes = new ArrayList<>();
+
+        AtomicInteger row = new AtomicInteger();
+        AtomicInteger col = new AtomicInteger();
+
+        int numThreads = Runtime.getRuntime().availableProcessors(); // 获取可用的处理器核心数
+        int objectsPerThread = (int) Math.ceil((double) nombreObjects / numThreads) + 300; // 每个线程处理的对象数量
+
+        ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
+
+        for (int t = 0; t < numThreads; t++) {
+            int startIndex = t * objectsPerThread;
+            int endIndex = Math.min(startIndex + objectsPerThread, nombreObjects);
+
+            executorService.submit(() -> {
+                for (int i = startIndex; i < endIndex; i++) {
+                    Object object = objects.get(i);
+                    ObejctCard obejctCard = new ObejctCard(object, imageHashMap.get(object.getImgUrl()), true, false, false, cardGrid);
+
+                    if (addedNodes.add(obejctCard.gethBox())) {
+                        Platform.runLater(() -> {
+                            cardGrid.add(obejctCard.gethBox(), col.get(), row.get());
+                            cardGrid.setPadding(new Insets(10));
+                            col.getAndIncrement();
+                            if (col.get() == cardGrid.getColumnCount()) {
+                                col.set(0);
+                                row.getAndIncrement();
+                            }
+                        });
+                    }
+                }
+            });
         }
+
+        executorService.shutdown();
+        try {
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        System.out.println("Total time: " + totalTime + " milliseconds");
     }
 
     @FXML
