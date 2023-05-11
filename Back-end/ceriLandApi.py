@@ -7,6 +7,7 @@ from user import User
 from panier import Panier
 from command import Command
 from comment import Comment
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -248,6 +249,19 @@ def getAllObjectById(ownerId):
 @app.route('/objects/<string:title>')
 def getObjectsByTitle(title):
     objects_result = db.getObjectsByTitle(title)
+    listObjectsCloset = []
+    for item in objects_result:
+        object = Object(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8])
+        listObjectsCloset.append(object)
+    json_users = json.dumps(listObjectsCloset, default=lambda obj: obj.__dict__, indent=4)
+    return json_users
+
+@app.route('/objects/date/<string:date>')
+def getObjectsByDate(date):
+    date_format = "%Y-%m-%d"
+    date_object = datetime.strptime(date, date_format)
+    timestamp = datetime.timestamp(date_object)
+    objects_result = db.getObjectsByDateDispo(timestamp)
     listObjectsCloset = []
     for item in objects_result:
         object = Object(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8])
