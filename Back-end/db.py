@@ -300,6 +300,13 @@ class DB:
         cur.close()
         return rows
 
+    def getObjectsByDateDispo(self, date):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM objects WHERE CAST(date_dispo_start AS float)<=" + str(date) + " AND CAST(date_dispo_end AS float)>=" + str(date) + "")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
     def getUserByUserId(self, userId):
         cur = self.conn.cursor()
         cur.execute("SELECT * FROM users WHERE id='" + str(userId) + "'")
