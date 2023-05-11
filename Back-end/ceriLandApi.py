@@ -204,6 +204,18 @@ def getCommanderbyObjectId(objectId):
         commands.append(command)
     json_commands = json.dumps(commands, default=lambda obj: obj.__dict__, indent=4)
     return json_commands
+
+@app.route('/commands/valided/<int:userId>')
+def getValidedCommanderbyCommanderId(userId):
+    userCommandeSent_result = db.getCommandsValidedByCommandertId(userId)
+    listUserCommandeSent = []
+    for item in userCommandeSent_result:
+        userCommandeSent = Command(item[0], item[1], item[2], item[3])
+        listUserCommandeSent.append(userCommandeSent)
+    json_userCommandeSent = json.dumps(listUserCommandeSent, default=lambda obj: obj.__dict__, indent=4)
+    return json_userCommandeSent
+
+
 # 
 # Gestion les users
 # 

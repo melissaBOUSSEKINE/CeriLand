@@ -159,6 +159,20 @@ public class ApiService {
         return commands;
     }
 
+    public static ArrayList<Command> getCommandsValided(String commanderId) {
+        ArrayList<Command> commands = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/commands/valided/" + commanderId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            commands = objectMapper.readValue(reader, new TypeReference<ArrayList<Command>>(){});
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return commands;
+    }
+
     public static ArrayList<Command> getCommandsSentByCommanderId(String commanderId) {
         ArrayList<Command> commands = new ArrayList<>();
         try {
