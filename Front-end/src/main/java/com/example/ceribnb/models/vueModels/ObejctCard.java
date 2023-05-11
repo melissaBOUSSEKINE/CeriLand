@@ -1,6 +1,4 @@
 package com.example.ceribnb.models.vueModels;
-
-import com.example.ceribnb.CommentController;
 import com.example.ceribnb.models.Command;
 import com.example.ceribnb.models.Object;
 import com.example.ceribnb.models.Response;

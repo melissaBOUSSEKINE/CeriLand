@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fc94d8e6-1476-4f06-abc8-bde859b9a216" name="Changes" comment="Remove setting unused">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommandeValide.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommandeValide.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ProfilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ProfilController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/ApiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/commandevalide.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/commandevalide.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/profil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/profil.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,6 +124,7 @@
       <workItem from="1683549860648" duration="54000" />
       <workItem from="1683555507967" duration="597000" />
       <workItem from="1683792271266" duration="3475000" />
+      <workItem from="1683834160737" duration="3368000" />
     </task>
     <task id="LOCAL-00001" summary="Remove setting unused">
       <created>1680533909482</created>
