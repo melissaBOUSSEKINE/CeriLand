@@ -7,15 +7,6 @@
     <list default="true" id="fc94d8e6-1476-4f06-abc8-bde859b9a216" name="Changes" comment="Remove setting unused">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/AccueilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/AccueilController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommandeValide.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommandeValide.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ProfilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ProfilController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/VarGlobal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/VarGlobal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/CommandEnvoye.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/CommandEnvoye.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/commandevalide.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/commandevalide.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/demandeObj.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/demandeObj.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/objProposé.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/objProposé.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/profil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/profil.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
