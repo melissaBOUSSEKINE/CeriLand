@@ -71,25 +71,58 @@ public class AccueilController implements Initializable {
 
         }
     }
+    @FXML
+    void setProfil() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("profil.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+    }
 
     void logout() {
         VarGlobal.currentUser = null;
         VarGlobal.logoutBtn.setVisible(false);
         VarGlobal.currentUserNameText.setVisible(false);
         VarGlobal.loginBtn.setVisible(true);
+        VarGlobal.profil.setVisible(false);
     }
 
     public void initialize(URL url, ResourceBundle rb) {
+        // Add the login button to the acceuil AnchorPane
 
         this.acceuil.getChildren().add(VarGlobal.loginBtn);
         AnchorPane.setRightAnchor(VarGlobal.loginBtn, 60.0);
         AnchorPane.setTopAnchor(VarGlobal.loginBtn, 20.0);
+
+        // Add the logout button to the acceuil AnchorPane and hide it initially
 
         this.acceuil.getChildren().add(VarGlobal.logoutBtn);
         AnchorPane.setRightAnchor(VarGlobal.logoutBtn, 60.0);
         AnchorPane.setTopAnchor(VarGlobal.logoutBtn, 20.0);
 
         VarGlobal.logoutBtn.setVisible(false);
+
+        // Add the profil button to the acceuil AnchorPane and hide it initially
+
+        this.acceuil.getChildren().add(VarGlobal.profil);
+        AnchorPane.setRightAnchor(VarGlobal.profil, 60.0);
+        AnchorPane.setTopAnchor(VarGlobal.profil, 50.0);
+
+        VarGlobal.profil.setVisible(false);
+
+
+
+
+        // Add the current user name text to the acceuil AnchorPane
 
         this.acceuil.getChildren().add(VarGlobal.currentUserNameText);
         AnchorPane.setRightAnchor(VarGlobal.currentUserNameText, 175.0);
@@ -101,6 +134,14 @@ public class AccueilController implements Initializable {
                 login();
             }
         });
+        // Set up the login and logout button event handlers
+
+        VarGlobal.profil.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                setProfil();
+            }
+        });
 
         VarGlobal.logoutBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -109,17 +150,21 @@ public class AccueilController implements Initializable {
             }
         });
 
+        // Call an API service method to retrieve data from the server
         ApiService.getAllObjects();
-
+        // Create a gray border for the scroll pane
         BorderStroke borderStroke = new BorderStroke(Color.GRAY,
                 BorderStrokeStyle.SOLID, null, new BorderWidths(2));
 
         // 使用Border类创建一个边框对象
         Border border = new Border(borderStroke);
 
+        // Set the border for the scroll pane
         // 为ScrollPane设置边框
+
         this.scrollPane.setBorder(border);
 
+        // Call a method to build object cards and display them in the scroll pane
         this.buildObjectCards(1000, VarGlobal.allObjects);
 
     }
@@ -152,7 +197,7 @@ public class AccueilController implements Initializable {
         int col = 0;
 
         for (int i = 0; i < nombreObjects; i++) {
-            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()));
+            ObejctCard obejctCard = new ObejctCard(objects.get(i), imageHashMap.get(objects.get(i).getImgUrl()), true,false,false, cardGrid);
 
             this.cardGrid.add(obejctCard.gethBox(), col, row);
             this.cardGrid.setPadding(new Insets(10));
@@ -170,6 +215,7 @@ public class AccueilController implements Initializable {
         String searchKey = this.searchTextFiled.getText();
         if(searchKey.equals("")){
             this.cardGrid.getChildren().clear();
+            this.msgResult.setText("");
             this.buildObjectCards(1000, VarGlobal.allObjects);
         } else {
             ArrayList<Object> results = ApiService.getObjectsByTitle(searchKey);

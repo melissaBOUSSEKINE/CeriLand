@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc94d8e6-1476-4f06-abc8-bde859b9a216" name="Changes" comment="Remove setting unused">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommandeValide.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommandeValide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ProfilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ProfilController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/commandevalide.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/commandevalide.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/profil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/profil.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,11 +25,15 @@
       <list>
         <option value="CSS File" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -42,8 +53,9 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Yingqi/etudes/M1S2/Prototypage et Interface Utilisateur/CeriLand/Front-end&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bouss/IdeaProjects/CeriLand2/Front-end&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -68,7 +80,7 @@
   <component name="RunManager">
     <configuration name="AcceuilApplication" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.example.ceribnb.AccueilApplication" />
-      <module name="CeriLand" />
+      <module name="Front-end" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.ceribnb.*" />
@@ -100,6 +112,23 @@
       <workItem from="1683144222204" duration="7808000" />
       <workItem from="1683209796104" duration="231000" />
       <workItem from="1683210048535" duration="881000" />
+      <workItem from="1683215465854" duration="828000" />
+      <workItem from="1683288781070" duration="1331000" />
+      <workItem from="1683335599902" duration="1174000" />
+      <workItem from="1683341850669" duration="90000" />
+      <workItem from="1683344376693" duration="2000" />
+      <workItem from="1683371072409" duration="43266000" />
+      <workItem from="1683449625390" duration="272000" />
+      <workItem from="1683450016185" duration="2807000" />
+      <workItem from="1683452908394" duration="9810000" />
+      <workItem from="1683479288274" duration="8202000" />
+      <workItem from="1683490978937" duration="917000" />
+      <workItem from="1683493500566" duration="9000" />
+      <workItem from="1683493526882" duration="5775000" />
+      <workItem from="1683530294045" duration="299000" />
+      <workItem from="1683549860648" duration="54000" />
+      <workItem from="1683555507967" duration="597000" />
+      <workItem from="1683792271266" duration="3475000" />
     </task>
     <task id="LOCAL-00001" summary="Remove setting unused">
       <created>1680533909482</created>

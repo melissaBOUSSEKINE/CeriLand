@@ -31,7 +31,7 @@ public class Command {
         this.objectId = objectId;
     }
 
-    public String getCommandId() {
+    public String getCommanderId() {
         return commanderId;
     }
 

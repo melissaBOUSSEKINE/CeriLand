@@ -33,22 +33,25 @@ public class ConnexionController {
     @FXML
     void functionLogin(ActionEvent event) {
         try {
-            String username = this.username.getText();
-            String password = this.mdp.getText();
+            //String username = this.username.getText();
+           // String password = this.mdp.getText();
+            String username = "John Reyes";
+            String password = "7yGBELOS6VxW5Q8";
             System.out.println(username + " " + password);
             VarGlobal.currentUser = ApiService.login(username, password);
             if(VarGlobal.currentUser.getId() != null) {
                 System.out.println(VarGlobal.currentUser);
-                VarGlobal.currentUserNameText.setText("Bienvenu , " + VarGlobal.currentUser.getUsername() + " !");
+                VarGlobal.currentUserNameText.setText("Bienvenue , " + VarGlobal.currentUser.getUsername() + " !");
                 VarGlobal.loginBtn.setVisible(false);
                 VarGlobal.logoutBtn.setVisible(true);
+                VarGlobal.profil.setVisible(true);
                 Stage stage = (Stage)connect.getScene().getWindow();
                 stage.close();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Connectez échoué! Veulliez vérifier votre username ou password! ");
+                alert.setContentText("Connection échouée! Veulliez vérifier votre username ou password! ");
                 alert.showAndWait();
             }
         } catch (Exception e) {

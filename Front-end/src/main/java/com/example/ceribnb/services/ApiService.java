@@ -39,7 +39,7 @@ public class ApiService {
         return user;
     }
 
-    public static User getUserByUserId(int userId) {
+    public static User getUserByUserId(String userId) {
         User user = new User();
         try {
             URL url = new URL(baseUrl + "/user/" + userId);
@@ -97,7 +97,8 @@ public class ApiService {
         return objects;
     }
 
-    public static Object getObjectById(int objectId){
+    //la liste d'objets !
+    public static Object getObjectById(String objectId){
         Object object = new Object();
         try {
             URL url = new URL(baseUrl + "/object/" + objectId);
@@ -111,10 +112,25 @@ public class ApiService {
         return object;
     }
 
+    public static ArrayList<Object> getAllObjectById(String ownerId){
+        ArrayList<Object> objects = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/objects/" + ownerId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            objects = objectMapper.readValue(reader, new TypeReference<ArrayList<Object>>(){});;
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return objects;
+    }
+
     /**
      * Gestion les commandes
      */
-    public static ArrayList<Command> getCommandsReceivedByUserId(int ownerId) {
+    // les demandes!
+    public static ArrayList<Command> getCommandsReceivedByUserId(String ownerId) {
         ArrayList<Command> commands = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + "/user/commands_received/" + ownerId);
@@ -128,7 +144,7 @@ public class ApiService {
         return commands;
     }
 
-    public static ArrayList<Command> getCommandsSentByCommanderId(int commanderId) {
+    public static ArrayList<Command> getCommandsSentByCommanderId(String commanderId) {
         ArrayList<Command> commands = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + "/user/commands_sent/" + commanderId);
@@ -142,7 +158,7 @@ public class ApiService {
         return commands;
     }
 
-    public static Response cancelCommand(int objectId, int commanderId){
+    public static Response cancelCommand(String objectId, String commanderId){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/user/command_sent/cancel");
@@ -162,7 +178,7 @@ public class ApiService {
         return res;
     }
 
-    public static Response sendCommand(int objectId, int commanderId){
+    public static Response sendCommand(String objectId, String commanderId){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/user/send_command");
@@ -181,8 +197,21 @@ public class ApiService {
         }
         return res;
     }
+    public static ArrayList<Command> getCommanderByObjectId(String objectId){
+        ArrayList<Command> commands = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/commands/object/" + objectId);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            commands = objectMapper.readValue(reader, new TypeReference<ArrayList<Command>>(){});;
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+        }
+        return commands;
+    }
 
-    public static Response valideCommand(int ownerId, int objectId, int commanderId){
+    public static Response valideCommand(String ownerId, String objectId, String commanderId){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/user/commands_received/valide");
@@ -202,7 +231,7 @@ public class ApiService {
         return res;
     }
 
-    public static Response refuseCommand(int ownerId, int objectId, int commanderId){
+    public static Response refuseCommand(String ownerId, String objectId, String commanderId){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/user/commands_received/refuse");
@@ -225,7 +254,7 @@ public class ApiService {
     /**
      * Gestion les panier
      */
-    public static ArrayList<Panier> getPanierByUserId(int userId) {
+    public static ArrayList<Panier> getPanierByUserId(String userId) {
         ArrayList<Panier> paniers = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + "/user/panier/" + userId);
@@ -239,7 +268,7 @@ public class ApiService {
         return paniers;
     }
 
-    public static Response addObjectIntoPanier(int objectId, int userId){
+    public static Response addObjectIntoPanier(String objectId, String userId){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/user/panier/add_object");
@@ -259,7 +288,7 @@ public class ApiService {
         return res;
     }
 
-    public static Response removeObjectFromPanier(int objectId, int userId){
+    public static Response removeObjectFromPanier(String objectId, String userId){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/user/panier/remove_object");
@@ -279,10 +308,31 @@ public class ApiService {
         return res;
     }
 
+    public static Response removeAllObjectsFromPanier(String userId) {
+        Response res = new Response();
+        try {
+            System.out.println(userId);
+            URL url = new URL(baseUrl + "/user/panier/remove_all_objects");
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("userid=" + userId);
+            out.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            res = objectMapper.readValue(reader, Response.class);
+            System.out.println(res);
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return res;
+    }
+
     /**
      * Gestion les commentaires
      */
-    public static ArrayList<Comment> getCommentsByObjectId(int objectId) {
+    public static ArrayList<Comment> getCommentsByObjectId(String objectId) {
         ArrayList<Comment> comments = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + "/object/comments/" + objectId);
@@ -296,7 +346,7 @@ public class ApiService {
         return comments;
     }
 
-    public static Response addCommentToObject(int objectId, int userId, String comment){
+    public static Response addCommentToObject(String objectId, String userId, String comment){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/object/comments/add_comment");
@@ -316,7 +366,7 @@ public class ApiService {
         return res;
     }
 
-    public static Response deleteCommentToObject(int commentId){
+    public static Response deleteCommentToObject(String commentId){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/object/comments/delete_comment");
