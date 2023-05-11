@@ -127,7 +127,7 @@ public class AccueilController implements Initializable {
         // Add the current user name text to the acceuil AnchorPane
 
         this.acceuil.getChildren().add(VarGlobal.currentUserNameText);
-        AnchorPane.setRightAnchor(VarGlobal.currentUserNameText, 175.0);
+        AnchorPane.setRightAnchor(VarGlobal.currentUserNameText, 800.0);
         AnchorPane.setTopAnchor(VarGlobal.currentUserNameText, 25.0);
 
         VarGlobal.loginBtn.setOnAction(new EventHandler<ActionEvent>() {
