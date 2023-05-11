@@ -9,7 +9,7 @@
    <children>
       <Button layoutX="61.0" layoutY="273.0" mnemonicParsing="false" prefHeight="38.0" onAction="#setPanier" prefWidth="135.0" text="Panier" />
       <Button layoutX="232.0" layoutY="273.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="135.0" onAction="#commandSent" text="Commandes envoyées" />
-      <Button layoutX="391.0" layoutY="273.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="135.0" text="Commandes validées" />
+      <Button layoutX="391.0" layoutY="273.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="135.0" onAction="#commandvald"text="Commandes validées" />
       <Text fx:id="name" layoutX="242.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <Text fx:id="address" layoutX="242.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
    </children>

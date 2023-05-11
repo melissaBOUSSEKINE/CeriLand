@@ -137,4 +137,21 @@ public class ProfilController implements Initializable {
 
     }
 
+    public void commandvald(){
+        //je vais m'emmer
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("commandvalide.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
 }

@@ -34,12 +34,12 @@ public class CommentController implements Initializable {
     public void addComment(){
         //commentList.getItems().clear();
         String newComment = commentText.getText();
-        if(newComment == null && newComment.isEmpty()){
+        if(newComment == null || newComment.isEmpty()){
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Pour ajouter un commentaire veuillez se connecter");
+            alert.setContentText("Rentrez un commentaire valide");
             alert.showAndWait();
 
         }else if(VarGlobal.currentUser == null){

@@ -231,7 +231,7 @@ public class ApiService {
         return res;
     }
 
-    public static Response refuseCommand(int ownerId, int objectId, int commanderId){
+    public static Response refuseCommand(String ownerId, String objectId, String commanderId){
         Response res = new Response();
         try {
             URL url = new URL(baseUrl + "/user/commands_received/refuse");

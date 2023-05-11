@@ -171,7 +171,7 @@ public class ObejctCard {
         });
 
         refusBtn.setOnAction(e -> {
-           // refusDemande(object);
+            refusDemande(object);
             System.out.println("refuser");
         });
 
@@ -194,13 +194,13 @@ public class ObejctCard {
         VBox.setMargin(hBoxPrix, new Insets(10));
         vBoxInfo.getChildren().add(hBoxPrix);
 
-        VBox.setMargin(addButton, new Insets(-20,10,10,50));
+        VBox.setMargin(addButton, new Insets(0,10,10,50));
         vBoxInfo.getChildren().add(addButton);
 
-        VBox.setMargin(deleteButton, new Insets(-20,10,10,50));
+        VBox.setMargin(deleteButton, new Insets(0,10,10,50));
         vBoxInfo.getChildren().add(deleteButton);
 
-        VBox.setMargin(validBtn, new Insets(-20,10,10,50));
+        VBox.setMargin(validBtn, new Insets(0,10,10,50));
         vBoxInfo.getChildren().add(validBtn);
 
         VBox.setMargin(refusBtn, new Insets(10,10,10,50));
@@ -276,6 +276,25 @@ public class ObejctCard {
 
 
     }
+
+    public void refusDemande(Object object) {
+        ArrayList<Command> commands = ApiService.getCommanderByObjectId(object.getId());
+        Response response = null;
+        for (Command cmd : commands) {
+            System.out.println(cmd.getCommanderId());
+            response = ApiService.refuseCommand(VarGlobal.currentUser.getId(), object.getId(), cmd.getCommanderId());
+            System.out.println(response.getErrorMsg());
+        }
+
+        Alert alert = new Alert(response.getErrorCode().equals("0") ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+        alert.setTitle(null);
+        alert.setHeaderText(null);
+        alert.setContentText(response.getErrorMsg());
+        alert.showAndWait();
+
+
+    }
+
 
 
 }
