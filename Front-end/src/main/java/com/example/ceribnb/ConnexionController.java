@@ -35,8 +35,8 @@ public class ConnexionController {
         try {
             //String username = this.username.getText();
            // String password = this.mdp.getText();
-            String username = "John Reyes";
-            String password = "7yGBELOS6VxW5Q8";
+            String username = "Patricia Reyes";
+            String password = "6M7KaIZ0ZDtlbfj";
             System.out.println(username + " " + password);
             VarGlobal.currentUser = ApiService.login(username, password);
             if(VarGlobal.currentUser.getId() != null) {
