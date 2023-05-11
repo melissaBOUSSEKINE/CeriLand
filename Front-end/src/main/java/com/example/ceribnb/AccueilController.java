@@ -52,6 +52,8 @@ public class AccueilController implements Initializable {
     private TextField searchTextFiled;
 
     @FXML
+    private TextField searchTextFiledDate;
+    @FXML
     private Text msgResult;
 
     public boolean isButtonVisible;
@@ -219,6 +221,22 @@ public class AccueilController implements Initializable {
             this.buildObjectCards(1000, VarGlobal.allObjects);
         } else {
             ArrayList<Object> results = ApiService.getObjectsByTitle(searchKey);
+            this.msgResult.setText("Has " + results.size() + " results");
+            this.cardGrid.getChildren().clear();
+            this.buildObjectCards(results.size(), results);
+        }
+    }
+
+    @FXML
+    void searchByDate(ActionEvent event) {
+        System.out.println(this.searchTextFiledDate.getText());
+        String searchKey = this.searchTextFiledDate.getText();
+        if(searchKey.equals("")){
+            this.cardGrid.getChildren().clear();
+            this.msgResult.setText("");
+            this.buildObjectCards(1000, VarGlobal.allObjects);
+        } else {
+            ArrayList<Object> results = ApiService.getObjectsByDate(searchKey);
             this.msgResult.setText("Has " + results.size() + " results");
             this.cardGrid.getChildren().clear();
             this.buildObjectCards(results.size(), results);
