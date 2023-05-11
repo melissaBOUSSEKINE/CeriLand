@@ -127,7 +127,7 @@ public class AccueilController implements Initializable {
         // Add the current user name text to the acceuil AnchorPane
 
         this.acceuil.getChildren().add(VarGlobal.currentUserNameText);
-        AnchorPane.setRightAnchor(VarGlobal.currentUserNameText, 175.0);
+        AnchorPane.setRightAnchor(VarGlobal.currentUserNameText, 800.0);
         AnchorPane.setTopAnchor(VarGlobal.currentUserNameText, 25.0);
 
         VarGlobal.loginBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -168,6 +168,22 @@ public class AccueilController implements Initializable {
 
         // Call a method to build object cards and display them in the scroll pane
         this.buildObjectCards(1000, VarGlobal.allObjects);
+
+
+        // Add a listener to the search text field to trigger a new search when the text changes
+        this.searchTextFiled.textProperty().addListener((observable, oldValue, newValue) -> {
+            String searchKey = newValue.trim();
+            if (searchKey.length() >= 3) { // Only search when the search key is at least 3 characters long
+                ArrayList<Object> results = ApiService.getObjectsByTitle(searchKey);
+                this.msgResult.setText("Has " + results.size() + " results");
+                this.cardGrid.getChildren().clear();
+                this.buildObjectCards(results.size(), results);
+            } else if (searchKey.isEmpty()) { // When the search key is empty, show all objects
+                this.cardGrid.getChildren().clear();
+                this.msgResult.setText("");
+                this.buildObjectCards(1000, VarGlobal.allObjects);
+            }
+        });
 
     }
 
@@ -234,7 +250,7 @@ public class AccueilController implements Initializable {
         if(searchKey.equals("")){
             this.cardGrid.getChildren().clear();
             this.msgResult.setText("");
-            this.buildObjectCards(1000, VarGlobal.allObjects);
+            this.buildObjectCards(100, VarGlobal.allObjects);
         } else {
             ArrayList<Object> results = ApiService.getObjectsByDate(searchKey);
             this.msgResult.setText("Has " + results.size() + " results");
