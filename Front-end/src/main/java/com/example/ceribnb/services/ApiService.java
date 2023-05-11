@@ -12,6 +12,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ApiService {
 
@@ -87,6 +88,20 @@ public class ApiService {
         ArrayList<Object> objects = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + "/objects/" + title);
+            URLConnection conn = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper objectMapper = new ObjectMapper();
+            objects = objectMapper.readValue(reader, new TypeReference<ArrayList<Object>>(){});
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return objects;
+    }
+
+    public static ArrayList<Object> getObjectsByDate(String date){
+        ArrayList<Object> objects = new ArrayList<>();
+        try {
+            URL url = new URL(baseUrl + "/objects/date/" + date);
             URLConnection conn = url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             ObjectMapper objectMapper = new ObjectMapper();
@@ -385,4 +400,5 @@ public class ApiService {
         }
         return res;
     }
+
 }

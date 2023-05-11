@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fc94d8e6-1476-4f06-abc8-bde859b9a216" name="Changes" comment="Remove setting unused" />
+    <list default="true" id="fc94d8e6-1476-4f06-abc8-bde859b9a216" name="Changes" comment="Remove setting unused">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023_4_27_11_29__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023_4_27_11_29__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/AccueilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/AccueilController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/accueil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ceribnb/accueil.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
