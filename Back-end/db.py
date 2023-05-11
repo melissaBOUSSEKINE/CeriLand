@@ -267,6 +267,13 @@ class DB:
         cur.close()
         return rows
 
+    def getCommandsValidedByCommandertId(self, userId):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM objects WHERE res_status='0' AND res_by='" + str(userId) + "'")
+        rows = cur.fetchall()
+        cur.close()
+        return rows
+
     def updateObjectResStatus(self, ownerid, objectId, commanderId):
         print(ownerid)
         print(self.getOwnerIdByObjectId(objectId)[0][0])
