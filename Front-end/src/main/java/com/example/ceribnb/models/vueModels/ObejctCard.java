@@ -51,20 +51,13 @@ public class ObejctCard {
 
 
             imageView.setOnMouseClicked(event -> {
-                //CommentController commentController = new CommentController();
                 VarGlobal.objetId =  object.getId();
-                System.out.println("izannnn  " + VarGlobal.objetId);
-               // commentController.refreshCommentList();
-
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ceribnb/comment.fxml"));
                     Parent root = loader.load();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.show();
-
-
-                    System.out.println("melii"+VarGlobal.objetId);
 
                 } catch (Exception e) {
 
@@ -81,13 +74,11 @@ public class ObejctCard {
         Date dateStart = new Date(timeStampStart);
         SimpleDateFormat sdfStart = new SimpleDateFormat("yyyy/MM/dd");
         String dateStartString = sdfStart.format(dateStart);
-//        System.out.println("Date dispo start : " + dateStartString);
 
         long timeStampEnd = (long) Double.parseDouble(object.getDateDispoEnd()) * 1000;
         Date dateEnd = new Date(timeStampEnd);
         SimpleDateFormat sdfEnd = new SimpleDateFormat("yyyy/MM/dd");
         String dateEndString = sdfEnd.format(dateEnd);
-//        System.out.println("Date dispo end : " + dateEndString);
 
         Text title = new Text(object.getTitle());
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -123,9 +114,6 @@ public class ObejctCard {
         textFlowTitle.setPrefWidth(250);
         textFlowTitle.getChildren().addAll(title);
 
-       // Button addButton = new Button("Ajout dans le panier");
-
-       // Button addButton = VarGlobal.addButton;
 
         Button addButton = new Button(VarGlobal.addButton.getText());
         addButton.setOnAction(VarGlobal.addButton.getOnAction());
@@ -160,8 +148,6 @@ public class ObejctCard {
             refusBtn.setVisible(false);
         }
 
-
-       // deleteButton.setVisible(false);
 
         validBtn.setOnAction(e -> {
             validDemande(object);
