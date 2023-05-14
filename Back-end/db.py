@@ -197,7 +197,7 @@ class DB:
 
     def getAllObjects(self):
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM objects WHERE NOT res_status='0'")
+        cur.execute("SELECT * FROM objects WHERE NOT res_status='0' AND NOT ownerid IS NULL")
         rows = cur.fetchall()
         cur.close()
         return rows

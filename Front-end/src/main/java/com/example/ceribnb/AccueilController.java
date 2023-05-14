@@ -167,7 +167,7 @@ public class AccueilController implements Initializable {
         this.scrollPane.setBorder(border);
 
         // Call a method to build object cards and display them in the scroll pane
-        this.buildObjectCards(VarGlobal.allObjects.size(), VarGlobal.allObjects);
+        this.buildObjectCards(1000, VarGlobal.allObjects);
 
 
         // Add a listener to the search text field to trigger a new search when the text changes

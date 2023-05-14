@@ -116,12 +116,12 @@ public class ObejctCard {
         labelPrix.setFill(Color.GRAY);
 
 
-        System.out.println("ggg" + object.getOwnerId());
-        User owner = ApiService.getUserByUserId(object.getOwnerId());
-        String ownername = owner.getUsername();
-        System.out.println("jjjj" + ownername);
-        Text ownerName = new Text("Propriétaire: " + ownername);
-        ownerName.setFill(Color.GRAY);
+//        System.out.println("ggg" + object.getOwnerId());
+//        User owner = ApiService.getUserByUserId(object.getOwnerId());
+//        String ownername = owner.getUsername();
+//        System.out.println("jjjj" + ownername);
+//        Text ownerName = new Text("Propriétaire: " + ownername);
+//        ownerName.setFill(Color.GRAY);
         //ownerName.setText("Propriétaire: " + ownername);
 
 
@@ -194,7 +194,7 @@ public class ObejctCard {
         vBoxInfo.getChildren().add(textFlowTitle);
         vBoxInfo.getChildren().add(labelDate);
         vBoxInfo.getChildren().add(stackPaneDateDispo);
-        vBoxInfo.getChildren().add(ownerName);
+//        vBoxInfo.getChildren().add(ownerName);
         VBox.setMargin(hBoxPrix, new Insets(10));
         vBoxInfo.getChildren().add(hBoxPrix);
 
@@ -211,9 +211,9 @@ public class ObejctCard {
         vBoxInfo.getChildren().add(refusBtn);
 
 // Add validText control to vBoxInfo
-        VarGlobal.validText = new Text();
-        VarGlobal.validText.setText("");
-        vBoxInfo.getChildren().add(VarGlobal.validText);
+//        VarGlobal.validText = new Text();
+//        VarGlobal.validText.setText("");
+//        vBoxInfo.getChildren().add(VarGlobal.validText);
 
         this.hBox = new HBox(10);
         this.hBox.getChildren().addAll(imageView, vBoxInfo);
