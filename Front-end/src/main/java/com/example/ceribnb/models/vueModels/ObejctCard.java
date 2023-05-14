@@ -2,6 +2,7 @@ package com.example.ceribnb.models.vueModels;
 import com.example.ceribnb.models.Command;
 import com.example.ceribnb.models.Object;
 import com.example.ceribnb.models.Response;
+import com.example.ceribnb.models.User;
 import com.example.ceribnb.services.ApiService;
 import com.example.ceribnb.services.VarGlobal;
 import javafx.fxml.FXMLLoader;
@@ -26,15 +27,16 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+import javafx.application.Platform;
 public class ObejctCard {
 
     private HBox hBox;
     private GridPane cardGrid;
 
-    public ObejctCard(Object object, Image image, boolean showAddButton, boolean showDeleteButton,boolean showValRefButton, GridPane cardGrid){
+    public ObejctCard(Object object, Image image, boolean showAddButton, boolean showDeleteButton, boolean showValRefButton, GridPane cardGrid) {
 
         //showAddButton = true;
+        // Text ownerName = new Text();
         this.cardGrid = cardGrid;
         System.out.println("Id: " + object.getId());
 
@@ -50,29 +52,29 @@ public class ObejctCard {
         imageView.setEffect(dropShadow);
 
 
-            imageView.setOnMouseClicked(event -> {
-                //CommentController commentController = new CommentController();
-                VarGlobal.objetId =  object.getId();
-                System.out.println("izannnn  " + VarGlobal.objetId);
-               // commentController.refreshCommentList();
+        imageView.setOnMouseClicked(event -> {
+            //CommentController commentController = new CommentController();
+            VarGlobal.objetId = object.getId();
+            System.out.println("izannnn  " + VarGlobal.objetId);
+            // commentController.refreshCommentList();
 
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ceribnb/comment.fxml"));
-                    Parent root = loader.load();
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.show();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ceribnb/comment.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
 
 
-                    System.out.println("melii"+VarGlobal.objetId);
+                System.out.println("melii" + VarGlobal.objetId);
 
-                } catch (Exception e) {
+            } catch (Exception e) {
 
-                    e.printStackTrace();
+                e.printStackTrace();
 
-                }
+            }
 
-            });
+        });
 
         Tooltip tooltip = new Tooltip("Click here to add and see all the comments");
         Tooltip.install(imageView, tooltip);
@@ -112,6 +114,17 @@ public class ObejctCard {
         Text prix = new Text(object.getPrix() + " €");
         prix.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
         prix.setFill(Color.RED);
+        labelPrix.setFill(Color.GRAY);
+
+
+        System.out.println("ggg" + object.getOwnerId());
+        User owner = ApiService.getUserByUserId(object.getOwnerId());
+        String ownername = owner.getUsername();
+        System.out.println("jjjj" + ownername);
+        Text ownerName = new Text("Propriétaire: " + ownername);
+        ownerName.setFill(Color.GRAY);
+        //ownerName.setText("Propriétaire: " + ownername);
+
 
         HBox hBoxPrix = new HBox();
         hBoxPrix.getChildren().addAll(labelPrix, prix);
@@ -123,9 +136,9 @@ public class ObejctCard {
         textFlowTitle.setPrefWidth(250);
         textFlowTitle.getChildren().addAll(title);
 
-       // Button addButton = new Button("Ajout dans le panier");
+        // Button addButton = new Button("Ajout dans le panier");
 
-       // Button addButton = VarGlobal.addButton;
+        // Button addButton = VarGlobal.addButton;
 
         Button addButton = new Button(VarGlobal.addButton.getText());
         addButton.setOnAction(VarGlobal.addButton.getOnAction());
@@ -134,10 +147,10 @@ public class ObejctCard {
         deleteButton.setOnAction(VarGlobal.deleteButton.getOnAction());
 
         Button validBtn = new Button(VarGlobal.valider.getText());
-        deleteButton.setOnAction(VarGlobal.valider.getOnAction());
+        validBtn.setOnAction(VarGlobal.valider.getOnAction());
 
         Button refusBtn = new Button(VarGlobal.refuser.getText());
-        deleteButton.setOnAction(VarGlobal.refuser.getOnAction());
+        refusBtn.setOnAction(VarGlobal.refuser.getOnAction());
 
         if (showAddButton) {
             addButton.setVisible(true);
@@ -150,18 +163,18 @@ public class ObejctCard {
             deleteButton.setVisible(false);
         }
 
-        System.out.println("show is "+showValRefButton);
-        if(showValRefButton){
+        System.out.println("show is " + showValRefButton);
+        if (showValRefButton) {
             validBtn.setVisible(true);
             refusBtn.setVisible(true);
 
-        }else{
+        } else {
             validBtn.setVisible(false);
             refusBtn.setVisible(false);
         }
 
 
-       // deleteButton.setVisible(false);
+// deleteButton.setVisible(false);
 
         validBtn.setOnAction(e -> {
             validDemande(object);
@@ -180,7 +193,7 @@ public class ObejctCard {
         });
 
         deleteButton.setOnAction(e -> {
-            deleteObject(object , VarGlobal.currentUser.getId());
+            deleteObject(object, VarGlobal.currentUser.getId());
             System.out.println("delete success");
         });
 
@@ -189,20 +202,26 @@ public class ObejctCard {
         vBoxInfo.getChildren().add(textFlowTitle);
         vBoxInfo.getChildren().add(labelDate);
         vBoxInfo.getChildren().add(stackPaneDateDispo);
+        vBoxInfo.getChildren().add(ownerName);
         VBox.setMargin(hBoxPrix, new Insets(10));
         vBoxInfo.getChildren().add(hBoxPrix);
 
-        VBox.setMargin(addButton, new Insets(0,10,10,50));
+        VBox.setMargin(addButton, new Insets(0, 10, 10, 50));
         vBoxInfo.getChildren().add(addButton);
 
-        VBox.setMargin(deleteButton, new Insets(0,10,10,50));
+        VBox.setMargin(deleteButton, new Insets(0, 10, 10, 50));
         vBoxInfo.getChildren().add(deleteButton);
 
-        VBox.setMargin(validBtn, new Insets(0,10,10,50));
+        VBox.setMargin(validBtn, new Insets(0, 10, 10, 50));
         vBoxInfo.getChildren().add(validBtn);
 
-        VBox.setMargin(refusBtn, new Insets(10,10,10,50));
+        VBox.setMargin(refusBtn, new Insets(10, 10, 10, 50));
         vBoxInfo.getChildren().add(refusBtn);
+
+// Add validText control to vBoxInfo
+        VarGlobal.validText = new Text();
+        VarGlobal.validText.setText("");
+        vBoxInfo.getChildren().add(VarGlobal.validText);
 
         this.hBox = new HBox(10);
         this.hBox.getChildren().addAll(imageView, vBoxInfo);
@@ -219,7 +238,7 @@ public class ObejctCard {
     }
 
     void onClickAddButton(Object object) {
-        if(VarGlobal.currentUser == null){
+        if (VarGlobal.currentUser == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
             alert.setHeaderText(null);
@@ -272,7 +291,10 @@ public class ObejctCard {
         alert.setContentText(response.getErrorMsg());
         alert.showAndWait();
 
-
+// Update validText control on the JavaFX Application Thread
+        Platform.runLater(() -> {
+            VarGlobal.validText.setText("commande validée");
+        });
     }
 
     public void refusDemande(Object object) {
@@ -289,10 +311,6 @@ public class ObejctCard {
         alert.setHeaderText(null);
         alert.setContentText(response.getErrorMsg());
         alert.showAndWait();
-
-
     }
-
-
-
 }
+

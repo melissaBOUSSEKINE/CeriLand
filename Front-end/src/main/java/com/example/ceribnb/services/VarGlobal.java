@@ -21,6 +21,8 @@ public class VarGlobal {
 
     public static Text currentUserNameText = new Text("");
 
+    public static Text validText = new Text("");
+
     public static Button profil = new Button("Profile");
     public static Button addButton = new Button("Ajouter au panier");
 

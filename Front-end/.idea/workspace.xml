@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc94d8e6-1476-4f06-abc8-bde859b9a216" name="Changes" comment="Remove setting unused">
+      <change beforePath="$PROJECT_DIR$/../Back-end/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Back-end/db.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/AccueilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/AccueilController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/VarGlobal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/services/VarGlobal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -48,7 +57,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/bouss/IdeaProjects/CeriLand2/Front-end&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bouss/IdeaProjects/CeriLand/Front-end&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -87,6 +96,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.AcceuilApplication" />
+        <item itemvalue="Application.AcceuilApplication" />
+        <item itemvalue="Application.AcceuilApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -123,6 +134,9 @@
       <workItem from="1683555507967" duration="597000" />
       <workItem from="1683792271266" duration="3475000" />
       <workItem from="1683834160737" duration="3758000" />
+      <workItem from="1684062728483" duration="1012000" />
+      <workItem from="1684063860198" duration="3479000" />
+      <workItem from="1684077574872" duration="134000" />
     </task>
     <task id="LOCAL-00001" summary="Remove setting unused">
       <created>1680533909482</created>
