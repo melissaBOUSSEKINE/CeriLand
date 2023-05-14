@@ -21,13 +21,15 @@ public class VarGlobal {
 
     public static Text currentUserNameText = new Text("");
 
+    public static Text validText = new Text("");
+
     public static Button profil = new Button("Profile");
     public static Button addButton = new Button("Ajouter au panier");
 
     public static Button deleteButton = new Button("Supprimer");
 
-    public static Button ObjetProp = new Button("Objets proposés");
-    public static Button demandObj = new Button("Demandes d'objets");
+    public static Button ObjetProp = new Button("Mes Objets");
+    public static Button demandObj = new Button("Demandes reçu");
 
     public static Button valider = new Button("Valider");
     public static Button refuser = new Button("Refuser");

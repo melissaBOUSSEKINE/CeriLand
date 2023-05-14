@@ -82,6 +82,7 @@ public class DemandeObjController implements Initializable {
         for (Command cmd : demands) {
             Object object = ApiService.getObjectById(cmd.getObjectId());
             objects.add(object);
+            System.out.println(object.getId());
         }
         System.out.println("yessss");
         this.cardGrid.getChildren().clear();

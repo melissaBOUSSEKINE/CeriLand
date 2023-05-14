@@ -140,7 +140,7 @@ public class ProfilController implements Initializable {
     public void commandvald(){
         //je vais m'emmer
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("commandvalide.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("commandevalide.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

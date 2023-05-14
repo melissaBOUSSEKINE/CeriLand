@@ -66,6 +66,17 @@ public class CommandeValide implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
 
+        ArrayList<Command> commands = ApiService.getCommandsValided(VarGlobal.currentUser.getId());
+        ArrayList<Object> objects = new ArrayList<Object>();
+
+        for (Command command:commands){
+            Object object = ApiService.getObjectById(command.getObjectId());
+            objects.add(object);
+        }
+
+        this.cardGrid.getChildren().clear();
+        this.buildObjectCards(commands.size(), objects, false, false, false);
+
 
 
     }
