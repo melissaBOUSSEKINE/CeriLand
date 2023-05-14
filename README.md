@@ -24,5 +24,5 @@ Dans base, copier le contenu du fichier ```https://github.com/melissaBOUSSEKINE/
 
 Lancer le fichier ```CeriLand/Back-end/ceriLandApi.py``` pour lancer l'api de l'application.
 
-  *Pour initialiser et insérer les données par défaut dans le base, lancer la route ```/initAllData```
-  *Pour supprimer tous les données dans le base, lancer la route ```/resetAllData```
+  - Pour initialiser et insérer les données par défaut dans le base, lancer la route ```/initAllData```
+  - Pour supprimer tous les données dans le base, lancer la route ```/resetAllData```
