@@ -8,6 +8,8 @@ En cliquant sur le bouton "**Ajouter dans le panier**" dans la cart détaillée 
 
 ## Base de donnée & API
 
+Base de donnée de notre application est installé sur PostgreSQL, et l'api est en python.
+
 ![La relation de base de données](https://github.com/melissaBOUSSEKINE/CeriLand/blob/main/Back-end/relation_BD.png)
 
 Il faut créer un fichier ```CeriLand/Back-end/.env```
