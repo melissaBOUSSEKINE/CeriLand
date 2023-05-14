@@ -33,11 +33,8 @@ public class ConnexionController {
     @FXML
     void functionLogin(ActionEvent event) {
         try {
-            //String username = this.username.getText();
-           // String password = this.mdp.getText();
-
-            String username = "Natalie Armstrong";
-            String password = "RX0EfT0SPyjepB0";
+            String username = this.username.getText();
+            String password = this.mdp.getText();
 
             System.out.println(username + " " + password);
             VarGlobal.currentUser = ApiService.login(username, password);
