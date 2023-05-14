@@ -52,6 +52,7 @@ public class ObejctCard {
         imageView.setEffect(dropShadow);
 
 
+
         imageView.setOnMouseClicked(event -> {
             //CommentController commentController = new CommentController();
             VarGlobal.objetId = object.getId();
@@ -83,13 +84,11 @@ public class ObejctCard {
         Date dateStart = new Date(timeStampStart);
         SimpleDateFormat sdfStart = new SimpleDateFormat("yyyy/MM/dd");
         String dateStartString = sdfStart.format(dateStart);
-//        System.out.println("Date dispo start : " + dateStartString);
 
         long timeStampEnd = (long) Double.parseDouble(object.getDateDispoEnd()) * 1000;
         Date dateEnd = new Date(timeStampEnd);
         SimpleDateFormat sdfEnd = new SimpleDateFormat("yyyy/MM/dd");
         String dateEndString = sdfEnd.format(dateEnd);
-//        System.out.println("Date dispo end : " + dateEndString);
 
         Text title = new Text(object.getTitle());
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -136,10 +135,6 @@ public class ObejctCard {
         textFlowTitle.setPrefWidth(250);
         textFlowTitle.getChildren().addAll(title);
 
-        // Button addButton = new Button("Ajout dans le panier");
-
-        // Button addButton = VarGlobal.addButton;
-
         Button addButton = new Button(VarGlobal.addButton.getText());
         addButton.setOnAction(VarGlobal.addButton.getOnAction());
 
@@ -172,9 +167,6 @@ public class ObejctCard {
             validBtn.setVisible(false);
             refusBtn.setVisible(false);
         }
-
-
-// deleteButton.setVisible(false);
 
         validBtn.setOnAction(e -> {
             validDemande(object);
