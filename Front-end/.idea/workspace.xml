@@ -5,15 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc94d8e6-1476-4f06-abc8-bde859b9a216" name="Changes" comment="Remove setting unused">
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023_4_27_11_29__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023_4_27_11_29__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/ConnexionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/DemandeObjController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/DemandeObjController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ceribnb/models/vueModels/ObejctCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="Class" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="final_version" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -33,8 +55,10 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator.DESKTOP-S59OT49/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bouss/IdeaProjects/CeriLand/Front-end&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -47,10 +71,18 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\java\com\example\ceribnb\models\vueModels" />
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\resources\images" />
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\java\images" />
+      <recent name="E:\Yingqi\etudes\M1S2\Prototypage et Interface Utilisateur\CeriLand\Front-end\src\main\resources\com\example\ceribnb" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.ceribnb.HelloApplication" />
-      <module name="CeriLand" />
+    <configuration name="AcceuilApplication" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.ceribnb.AccueilApplication" />
+      <module name="Front-end" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.ceribnb.*" />
@@ -63,7 +95,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="Application.AcceuilApplication" />
+        <item itemvalue="Application.AcceuilApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -78,6 +111,30 @@
       <workItem from="1680527380989" duration="1396000" />
       <workItem from="1680532747931" duration="2003000" />
       <workItem from="1680850054933" duration="157000" />
+      <workItem from="1682974683081" duration="11046000" />
+      <workItem from="1683144222204" duration="7808000" />
+      <workItem from="1683209796104" duration="231000" />
+      <workItem from="1683210048535" duration="881000" />
+      <workItem from="1683215465854" duration="828000" />
+      <workItem from="1683288781070" duration="1331000" />
+      <workItem from="1683335599902" duration="1174000" />
+      <workItem from="1683341850669" duration="90000" />
+      <workItem from="1683344376693" duration="2000" />
+      <workItem from="1683371072409" duration="43266000" />
+      <workItem from="1683449625390" duration="272000" />
+      <workItem from="1683450016185" duration="2807000" />
+      <workItem from="1683452908394" duration="9810000" />
+      <workItem from="1683479288274" duration="8202000" />
+      <workItem from="1683490978937" duration="917000" />
+      <workItem from="1683493500566" duration="9000" />
+      <workItem from="1683493526882" duration="5775000" />
+      <workItem from="1683530294045" duration="299000" />
+      <workItem from="1683549860648" duration="54000" />
+      <workItem from="1683555507967" duration="597000" />
+      <workItem from="1683792271266" duration="3475000" />
+      <workItem from="1683834160737" duration="3758000" />
+      <workItem from="1684062728483" duration="1012000" />
+      <workItem from="1684063860198" duration="3479000" />
     </task>
     <task id="LOCAL-00001" summary="Remove setting unused">
       <created>1680533909482</created>
@@ -91,6 +148,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Remove setting unused" />

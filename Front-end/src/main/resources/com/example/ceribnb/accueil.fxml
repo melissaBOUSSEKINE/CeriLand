@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="acceuil" prefHeight="764.0" prefWidth="1017.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ceribnb.AccueilController">
+    <children>
+        <TextField fx:id="searchTextFiled" layoutX="325.0" layoutY="69.0" prefHeight="36.0" prefWidth="290.0" />
+        <Button fx:id="searchBtn" layoutX="626.0" layoutY="69.0" mnemonicParsing="false" onAction="#searchFunction" prefHeight="36.0" prefWidth="131.0" text="Rechercher" />
+        <ScrollPane fx:id="scrollPane" layoutX="35.0" layoutY="134.0" prefHeight="586.0" prefWidth="959.0">
+            <content>
+                <GridPane fx:id="cardGrid" hgap="10.0" prefHeight="574.0" prefWidth="935.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="624.7999328613281" minWidth="10.0" prefWidth="467.2000549316406" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="467.5999450683594" minWidth="10.0" prefWidth="467.5999450683594" />
+                    </columnConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+      <Text fx:id="msgResult" layoutX="490.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Button fx:id="searchBtnDate" layoutX="626.0" layoutY="25.0" mnemonicParsing="false" onAction="#searchByDate" prefHeight="36.0" prefWidth="131.0" text="Rechercher par date" />
+      <TextField fx:id="searchTextFiledDate" promptText="YYYY-MM-DD" layoutX="325.0" layoutY="25.0" prefHeight="36.0" prefWidth="290.0" />
+    </children>
+</AnchorPane>

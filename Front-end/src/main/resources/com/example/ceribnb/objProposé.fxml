@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ceribnb.ObjProposéController">
+
+    <children>
+        <ScrollPane fx:id="scrollPane" layoutY="23.0" prefHeight="586.0" prefWidth="959.0">
+            <content>
+                <GridPane fx:id="cardGrid" hgap="10.0" prefHeight="574.0" prefWidth="935.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="624.7999328613281" minWidth="10.0" prefWidth="467.2000549316406" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="467.5999450683594" minWidth="10.0" prefWidth="467.5999450683594" />
+                    </columnConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+    </children>
+
+</AnchorPane>

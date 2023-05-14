@@ -1,0 +1,6 @@
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<ScrollPane fx:controller="com.example.ceribnb.TestController" xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+   <GridPane fx:id="imageGrid" hgap="10" vgap="10"/>
+</ScrollPane>
