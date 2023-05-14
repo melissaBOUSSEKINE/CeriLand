@@ -22,7 +22,7 @@ DB_USER=##user identifiant##
 DB_PASSWORD=##password##
 ```
 
-Dans le base, copier le contenu du fichier ```<a href="[https://example.com](https://github.com/melissaBOUSSEKINE/CeriLand/blob/main/Back-end/db.sql)">https://github.com/melissaBOUSSEKINE/CeriLand/blob/main/Back-end/db.sql</a>``` dans le base **pgsql** pour créer les relation de tableaux.
+Dans le base, copier le contenu du fichier <a href="[https://example.com](https://github.com/melissaBOUSSEKINE/CeriLand/blob/main/Back-end/db.sql)">https://github.com/melissaBOUSSEKINE/CeriLand/blob/main/Back-end/db.sql</a> dans le base **pgsql** pour créer les relation de tableaux.
 
 Lancer le fichier ```CeriLand/Back-end/ceriLandApi.py``` pour lancer l'api de l'application.
 
